@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import Icon from '@/components/ui/icon';
@@ -208,18 +208,83 @@ interface DialogueSystemProps {
 }
 
 const DialogueSystem = ({ onClose }: DialogueSystemProps) => {
-  const [currentNodeId, setCurrentNodeId] = useState('start');
-  const [affectionLevel, setAffectionLevel] = useState(50);
+  const [currentNodeId, setCurrentNodeId] = useState(() => {
+    const saved = localStorage.getItem('novelProgress');
+    return saved ? JSON.parse(saved).nodeId : 'start';
+  });
+  const [affectionLevel, setAffectionLevel] = useState(() => {
+    const saved = localStorage.getItem('novelProgress');
+    return saved ? JSON.parse(saved).affection : 50;
+  });
+  const [history, setHistory] = useState<string[]>([]);
+  const [showSaveMenu, setShowSaveMenu] = useState(false);
+
+  useEffect(() => {
+    const saveData = {
+      nodeId: currentNodeId,
+      affection: affectionLevel,
+      timestamp: Date.now()
+    };
+    localStorage.setItem('novelProgress', JSON.stringify(saveData));
+  }, [currentNodeId, affectionLevel]);
 
   const currentNode = dialogueData.find(node => node.id === currentNodeId);
 
   if (!currentNode) return null;
 
   const handleChoice = (choice: DialogueChoice) => {
+    setHistory(prev => [...prev, currentNodeId]);
     if (choice.affection) {
       setAffectionLevel(prev => Math.max(0, Math.min(100, prev + choice.affection)));
     }
     setCurrentNodeId(choice.nextId);
+  };
+
+  const handleBack = () => {
+    if (history.length > 0) {
+      const previousNode = history[history.length - 1];
+      setCurrentNodeId(previousNode);
+      setHistory(prev => prev.slice(0, -1));
+    }
+  };
+
+  const resetProgress = () => {
+    localStorage.removeItem('novelProgress');
+    setCurrentNodeId('start');
+    setAffectionLevel(50);
+    setHistory([]);
+    setShowSaveMenu(false);
+  };
+
+  const getSaveSlots = () => {
+    const slots = [];
+    for (let i = 1; i <= 3; i++) {
+      const slot = localStorage.getItem(`novelSave${i}`);
+      slots.push(slot ? JSON.parse(slot) : null);
+    }
+    return slots;
+  };
+
+  const saveToSlot = (slotIndex: number) => {
+    const saveData = {
+      nodeId: currentNodeId,
+      affection: affectionLevel,
+      timestamp: Date.now(),
+      slotName: `Сохранение ${slotIndex}`
+    };
+    localStorage.setItem(`novelSave${slotIndex}`, JSON.stringify(saveData));
+    setShowSaveMenu(false);
+  };
+
+  const loadFromSlot = (slotIndex: number) => {
+    const slot = localStorage.getItem(`novelSave${slotIndex}`);
+    if (slot) {
+      const data = JSON.parse(slot);
+      setCurrentNodeId(data.nodeId);
+      setAffectionLevel(data.affection);
+      setHistory([]);
+      setShowSaveMenu(false);
+    }
   };
 
   const getCharacterName = (character: string) => {
@@ -252,10 +317,60 @@ const DialogueSystem = ({ onClose }: DialogueSystemProps) => {
             </div>
             <span className="text-sm text-muted-foreground">{affectionLevel}%</span>
           </div>
-          <Button variant="ghost" size="icon" onClick={onClose}>
-            <Icon name="X" size={24} />
-          </Button>
+          <div className="flex gap-2">
+            <Button variant="ghost" size="icon" onClick={() => setShowSaveMenu(!showSaveMenu)} title="Меню сохранений">
+              <Icon name="Save" size={24} />
+            </Button>
+            <Button variant="ghost" size="icon" onClick={handleBack} disabled={history.length === 0} title="Назад">
+              <Icon name="Undo" size={24} />
+            </Button>
+            <Button variant="ghost" size="icon" onClick={onClose}>
+              <Icon name="X" size={24} />
+            </Button>
+          </div>
         </div>
+
+        {showSaveMenu && (
+          <Card className="bg-card/95 backdrop-blur-sm border-2 border-primary/30 p-6 mb-4 animate-fade-in">
+            <h3 className="text-xl font-display font-bold mb-4 flex items-center gap-2">
+              <Icon name="Save" size={24} className="text-primary" />
+              Сохранения
+            </h3>
+            <div className="grid grid-cols-3 gap-4 mb-4">
+              {getSaveSlots().map((slot, index) => (
+                <div key={index} className="space-y-2">
+                  <Button
+                    className="w-full bg-primary/20 hover:bg-primary/40 border-2 border-primary/40 hover:border-primary text-foreground h-auto py-3"
+                    onClick={() => saveToSlot(index + 1)}
+                  >
+                    <Icon name="Download" size={16} className="mr-2" />
+                    Слот {index + 1}
+                  </Button>
+                  {slot && (
+                    <Button
+                      className="w-full bg-accent/20 hover:bg-accent/40 border-2 border-accent/40 hover:border-accent text-foreground text-xs py-2"
+                      onClick={() => loadFromSlot(index + 1)}
+                    >
+                      <Icon name="Upload" size={14} className="mr-1" />
+                      Загрузить
+                      <br />
+                      <span className="text-xs opacity-70">
+                        {new Date(slot.timestamp).toLocaleDateString()}
+                      </span>
+                    </Button>
+                  )}
+                </div>
+              ))}
+            </div>
+            <Button
+              className="w-full bg-destructive/20 hover:bg-destructive/40 border-2 border-destructive/40 hover:border-destructive text-foreground"
+              onClick={resetProgress}
+            >
+              <Icon name="RotateCcw" size={20} className="mr-2" />
+              Начать с начала
+            </Button>
+          </Card>
+        )}
 
         <Card className="bg-card/95 backdrop-blur-sm border-2 border-primary/30 p-8 animate-fade-in">
           {currentNode.character !== 'narrator' && (
