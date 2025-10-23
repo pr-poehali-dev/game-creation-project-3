@@ -18,7 +18,7 @@ const characters: Character[] = [
     name: 'Shadow Milk',
     title: 'Владыка Теней',
     description: 'Мастер лжи и обмана, правящий королевством теней, где царит тьма и ложь. Его характер непредсказуем, он часто смеётся и очень капризен. Не терпит отказов и сильно ревнив.',
-    image: 'https://v3b.fal.media/files/b/elephant/Ds3riAQ0kry15D6SauRqt_output.png'
+    image: 'https://cdn.poehali.dev/files/1b35f54b-44a9-4fc8-8097-3010c4648233.png'
   },
   {
     id: 'black-sapphire',
