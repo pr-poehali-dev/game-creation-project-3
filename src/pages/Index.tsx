@@ -25,7 +25,7 @@ const characters: Character[] = [
     name: 'Black Sapphire',
     title: 'Наследник Теней',
     description: 'Главный герой истории. Горячо любит и уважает своего отца. Уже не тот ребёнок, которым был когда-то — он вырос и повзрослел.',
-    image: 'https://v3b.fal.media/files/b/elephant/Ds3riAQ0kry15D6SauRqt_output.png'
+    image: 'https://cdn.poehali.dev/files/e1e5f884-ebc9-4120-b8c9-2083d5b8c48e.png'
   }
 ];
 
