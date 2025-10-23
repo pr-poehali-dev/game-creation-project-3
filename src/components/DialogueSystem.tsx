@@ -141,32 +141,443 @@ const dialogueData: DialogueNode[] = [
   },
   {
     id: 'reciprocate',
+    character: 'black-sapphire',
+    text: '*обнимает отца в ответ* Отец... я тоже чувствую это. *прижимается ближе*',
+    choices: [
+      { text: 'Продолжить', nextId: 'intimate_moment1' }
+    ]
+  },
+  {
+    id: 'intimate_moment1',
+    character: 'shadow-milk',
+    text: '*целует в лоб* Мой драгоценный сапфир... *его руки обнимают крепче* Ты не представляешь, как долго я этого ждал. *шепчет на ухо* Останься со мной... навсегда.',
+    choices: [
+      { text: 'Поцеловать в ответ', nextId: 'kiss_scene', affection: 25 },
+      { text: 'Просто остаться в объятиях', nextId: 'embrace_ending', affection: 15 },
+      { text: 'Сказать что нужно время', nextId: 'slow_down', affection: 5 }
+    ]
+  },
+  {
+    id: 'kiss_scene',
     character: 'narrator',
-    text: 'Black Sapphire обнимает отца в ответ. Их отношения переходят на новый уровень близости...',
+    text: 'Black Sapphire целует Shadow Milk. Их запретная страсть достигает пика. В этот момент время останавливается...',
+    choices: [
+      { text: 'Продолжить', nextId: 'passionate_path' }
+    ]
+  },
+  {
+    id: 'passionate_path',
+    character: 'shadow-milk',
+    text: '*задыхаясь* Ты... мой. Только мой. *тени вокруг них танцуют в экстазе* Никто не разлучит нас.',
+    choices: [
+      { text: 'Согласиться полностью', nextId: 'obsessive_ending', affection: 30 },
+      { text: 'Попросить сохранить рассудок', nextId: 'balanced_love_ending', affection: 20 }
+    ]
+  },
+  {
+    id: 'obsessive_ending',
+    character: 'narrator',
+    text: 'КОНЦОВКА: Одержимость. Black Sapphire полностью отдаётся чувствам Shadow Milk. Они становятся неразлучны, их страсть не знает границ. Королевство погружается в вечную тьму, но им всё равно — они есть друг у друга.',
+    choices: [
+      { text: 'Начать заново', nextId: 'start' }
+    ]
+  },
+  {
+    id: 'balanced_love_ending',
+    character: 'narrator',
+    text: 'КОНЦОВКА: Запретная любовь. Black Sapphire и Shadow Milk находят баланс между страстью и разумом. Их отношения запретны, но они учатся контролировать свои чувства. Вместе они правят королевством теней.',
+    choices: [
+      { text: 'Начать заново', nextId: 'start' }
+    ]
+  },
+  {
+    id: 'embrace_ending',
+    character: 'narrator',
+    text: 'КОНЦОВКА: Тихая близость. Black Sapphire и Shadow Milk остаются в объятиях. Их любовь нежная, без крайностей. Они находят покой друг в друге, храня свою тайну от мира.',
+    choices: [
+      { text: 'Начать заново', nextId: 'start' }
+    ]
+  },
+  {
+    id: 'slow_down',
+    character: 'shadow-milk',
+    text: '*отпускает немного* Конечно... *нервно смеётся* Я могу ждать. Для тебя я буду ждать вечность. *но в его глазах видна нетерпеливость*',
+    choices: [
+      { text: 'Продолжить', nextId: 'tension_building' }
+    ]
+  },
+  {
+    id: 'tension_building',
+    character: 'narrator',
+    text: 'Дни проходят. Напряжение между вами растёт. Shadow Milk всё более нетерпелив. Однажды ночью он приходит в вашу комнату...',
+    choices: [
+      { text: 'Впустить его', nextId: 'night_visit', affection: 15 },
+      { text: 'Попросить уйти', nextId: 'rejection_scene', affection: -15 }
+    ]
+  },
+  {
+    id: 'night_visit',
+    character: 'shadow-milk',
+    text: '*входит в комнату* Я больше не могу ждать... *приближается к кровати* Позволь мне... хотя бы побыть рядом.',
+    choices: [
+      { text: 'Позволить лечь рядом', nextId: 'bed_scene', affection: 20 },
+      { text: 'Предложить поговорить', nextId: 'talk_night', affection: 10 }
+    ]
+  },
+  {
+    id: 'bed_scene',
+    character: 'shadow-milk',
+    text: '*ложится рядом, обнимает* Как же хорошо... *гладит волосы* Ты такой тёплый... *его дыхание учащается* Можно... поцеловать?',
+    choices: [
+      { text: 'Разрешить', nextId: 'intimate_night', affection: 25 },
+      { text: 'Только обнимать', nextId: 'cuddle_ending', affection: 15 }
+    ]
+  },
+  {
+    id: 'intimate_night',
+    character: 'narrator',
+    text: 'КОНЦОВКА: Ночь страсти. То, что происходит этой ночью, навсегда изменит их отношения. Они переступают все границы. Утром они просыпаются в объятиях друг друга — больше нет пути назад.',
+    choices: [
+      { text: 'Начать заново', nextId: 'start' }
+    ]
+  },
+  {
+    id: 'cuddle_ending',
+    character: 'narrator',
+    text: 'КОНЦОВКА: Нежность теней. Они засыпают в объятиях друг друга. Это становится их ритуалом — ночи вместе, без слов, просто близость. Их любовь тихая, но глубокая.',
+    choices: [
+      { text: 'Начать заново', nextId: 'start' }
+    ]
+  },
+  {
+    id: 'talk_night',
+    character: 'black-sapphire',
+    text: 'Отец, давайте поговорим. О ваших чувствах, о моих... о том, что это значит.',
+    choices: [
+      { text: 'Продолжить', nextId: 'honest_conversation' }
+    ]
+  },
+  {
+    id: 'honest_conversation',
+    character: 'shadow-milk',
+    text: '*садится* Хорошо... *серьёзно* Я люблю тебя. Не как отец должен любить сына. Я... хочу тебя. Владеть тобой. Это неправильно, я знаю, но я не могу остановиться.',
+    choices: [
+      { text: 'Признаться во взаимности', nextId: 'mutual_confession', affection: 20 },
+      { text: 'Объяснить почему это сложно', nextId: 'complex_feelings', affection: 5 },
+      { text: 'Отвергнуть', nextId: 'gentle_rejection', affection: -20 }
+    ]
+  },
+  {
+    id: 'mutual_confession',
+    character: 'black-sapphire',
+    text: 'Отец... я тоже чувствую это. Я пытался бороться, но... *берёт его за руку* Может быть, это судьба.',
+    choices: [
+      { text: 'Продолжить', nextId: 'balanced_love_ending' }
+    ]
+  },
+  {
+    id: 'complex_feelings',
+    character: 'black-sapphire',
+    text: 'Я... не знаю, что чувствую. Я люблю вас как отца. Но эти новые чувства... они пугают меня. Мне нужно время понять.',
+    choices: [
+      { text: 'Продолжить', nextId: 'uncertainty_ending' }
+    ]
+  },
+  {
+    id: 'uncertainty_ending',
+    character: 'narrator',
+    text: 'КОНЦОВКА: Неопределённость. Black Sapphire и Shadow Milk остаются в подвешенном состоянии. Их чувства есть, но они не решаются действовать. Каждый день — испытание их воли.',
+    choices: [
+      { text: 'Начать заново', nextId: 'start' }
+    ]
+  },
+  {
+    id: 'gentle_rejection',
+    character: 'black-sapphire',
+    text: 'Отец, простите... но я не могу ответить на эти чувства. Вы для меня — отец. Только отец.',
+    choices: [
+      { text: 'Продолжить', nextId: 'heartbreak_path' }
+    ]
+  },
+  {
+    id: 'heartbreak_path',
+    character: 'shadow-milk',
+    text: '*слёзы на глазах* Я... понимаю. *смеётся сквозь боль* Конечно. Как глупо с моей стороны... *встаёт* Прости, что потревожил.',
+    choices: [
+      { text: 'Обнять на прощание', nextId: 'bittersweet_ending', affection: 5 },
+      { text: 'Отпустить его', nextId: 'distant_ending', affection: -10 }
+    ]
+  },
+  {
+    id: 'bittersweet_ending',
+    character: 'narrator',
+    text: 'КОНЦОВКА: Горькая нежность. Shadow Milk принимает отказ. Они остаются близки, но граница восстановлена. Иногда ночами Shadow Milk смотрит на дверь комнаты сына, но больше никогда не переступает её.',
+    choices: [
+      { text: 'Начать заново', nextId: 'start' }
+    ]
+  },
+  {
+    id: 'distant_ending',
+    character: 'narrator',
+    text: 'КОНЦОВКА: Холодная дистанция. После отказа Shadow Milk отдаляется. Они становятся почти чужими. В замке царит ледяное молчание. Оба страдают в одиночестве.',
+    choices: [
+      { text: 'Начать заново', nextId: 'start' }
+    ]
+  },
+  {
+    id: 'rejection_scene',
+    character: 'shadow-milk',
+    text: '*останавливается у двери* Ты... отвергаешь меня? Снова? *его голос дрожит от боли и гнева*',
+    choices: [
+      { text: 'Объяснить мягко', nextId: 'gentle_rejection' },
+      { text: 'Сказать жёстко', nextId: 'harsh_rejection', affection: -25 }
+    ]
+  },
+  {
+    id: 'harsh_rejection',
+    character: 'black-sapphire',
+    text: 'Хватит! Это неправильно! Вы — мой отец! Перестаньте!',
+    choices: [
+      { text: 'Продолжить', nextId: 'rage_ending' }
+    ]
+  },
+  {
+    id: 'rage_ending',
+    character: 'narrator',
+    text: 'КОНЦОВКА: Ярость теней. Shadow Milk не выдерживает жестокого отказа. Его безумие берёт верх. Он изгоняет Black Sapphire из королевства. Оба остаются сломленными и одинокими.',
     choices: [
       { text: 'Начать заново', nextId: 'start' }
     ]
   },
   {
     id: 'boundaries',
+    character: 'black-sapphire',
+    text: 'Отец, стойте. *мягко отстраняется* Я ценю вашу любовь, но... мы должны соблюдать границы.',
+    choices: [
+      { text: 'Продолжить', nextId: 'shadow_frustrated' }
+    ]
+  },
+  {
+    id: 'shadow_frustrated',
+    character: 'shadow-milk',
+    text: '*стискивает зубы* Границы? *смеётся нервно* Хорошо. Я... уважаю твоё решение. *но его руки дрожат от сдерживаемого желания*',
+    choices: [
+      { text: 'Уйти', nextId: 'boundaries_maintained' },
+      { text: 'Поцеловать в щёку напоследок', nextId: 'teasing_path', affection: 5 }
+    ]
+  },
+  {
+    id: 'boundaries_maintained',
     character: 'narrator',
-    text: 'Black Sapphire устанавливает границы. Shadow Milk недоволен, но уважает решение сына... пока что.',
+    text: 'КОНЦОВКА: Соблюдение границ. Black Sapphire твёрд в своём решении. Shadow Milk страдает, но уважает это. Их отношения остаются близкими, но платоническими. Напряжение никогда не уходит полностью.',
+    choices: [
+      { text: 'Начать заново', nextId: 'start' }
+    ]
+  },
+  {
+    id: 'teasing_path',
+    character: 'shadow-milk',
+    text: '*замирает от прикосновения губ к щеке* Ты... *хватает за руку* Не играй со мной так. Это жестоко.',
+    choices: [
+      { text: 'Извиниться и уйти', nextId: 'boundaries_maintained' },
+      { text: 'Остаться рядом', nextId: 'dangerous_game', affection: 10 }
+    ]
+  },
+  {
+    id: 'dangerous_game',
+    character: 'narrator',
+    text: 'Black Sapphire играет с огнём. Каждый день — новые намёки, лёгкие прикосновения, взгляды. Shadow Milk на грани...',
+    choices: [
+      { text: 'Продолжить игру', nextId: 'teasing_ending', affection: 15 },
+      { text: 'Остановиться', nextId: 'boundaries_maintained' }
+    ]
+  },
+  {
+    id: 'teasing_ending',
+    character: 'narrator',
+    text: 'КОНЦОВКА: Опасная игра. Black Sapphire постоянно дразнит Shadow Milk, балансируя на грани. Shadow Milk страдает от желания, но это их извращённый танец. Однажды он не выдержит...',
     choices: [
       { text: 'Начать заново', nextId: 'start' }
     ]
   },
   {
     id: 'reassure',
+    character: 'black-sapphire',
+    text: 'Отец, никого нет важнее вас. *берёт его руки* Вы — единственный в моей жизни.',
+    choices: [
+      { text: 'Продолжить', nextId: 'possessive_moment' }
+    ]
+  },
+  {
+    id: 'possessive_moment',
+    character: 'shadow-milk',
+    text: '*притягивает к себе* Докажи. *его глаза горят* Покажи мне, что я единственный.',
+    choices: [
+      { text: 'Поцеловать', nextId: 'proof_kiss', affection: 20 },
+      { text: 'Обнять крепко', nextId: 'proof_embrace', affection: 15 },
+      { text: 'Сказать словами', nextId: 'verbal_reassurance', affection: 8 }
+    ]
+  },
+  {
+    id: 'proof_kiss',
     character: 'narrator',
-    text: 'Black Sapphire уверяет отца в своей преданности. Shadow Milk доволен, его ревность утихает.',
+    text: 'Black Sapphire целует Shadow Milk страстно, доказывая свою преданность. Shadow Milk стонет от удовольствия...',
+    choices: [
+      { text: 'Продолжить', nextId: 'possessive_ending' }
+    ]
+  },
+  {
+    id: 'possessive_ending',
+    character: 'narrator',
+    text: 'КОНЦОВКА: Собственность. Black Sapphire становится полной собственностью Shadow Milk. Он носит метку отца — ошейник из теней. Они неразделимы. Shadow Milk невероятно доволен.',
     choices: [
       { text: 'Начать заново', nextId: 'start' }
     ]
   },
   {
-    id: 'ask_time',
+    id: 'proof_embrace',
+    character: 'shadow-milk',
+    text: '*обнимает в ответ* Хорошо... *удовлетворённо* Мой мальчик. Только мой.',
+    choices: [
+      { text: 'Продолжить', nextId: 'devoted_ending' }
+    ]
+  },
+  {
+    id: 'devoted_ending',
     character: 'narrator',
-    text: 'Black Sapphire просит времени. Shadow Milk в ярости уходит. Их отношения становятся напряжёнными.',
+    text: 'КОНЦОВКА: Преданность. Black Sapphire посвящает себя Shadow Milk. Они проводят каждый момент вместе. Их любовь глубока и взаимна, хоть и нездорова.',
+    choices: [
+      { text: 'Начать заново', nextId: 'start' }
+    ]
+  },
+  {
+    id: 'verbal_reassurance',
+    character: 'black-sapphire',
+    text: 'Вы — смысл моего существования, отец. Я живу только для вас.',
+    choices: [
+      { text: 'Продолжить', nextId: 'devoted_ending' }
+    ]
+  },
+  {
+    id: 'ask_time',
+    character: 'black-sapphire',
+    text: 'Отец, мне нужно время. Чтобы разобраться в своих чувствах.',
+    choices: [
+      { text: 'Продолжить', nextId: 'shadow_impatient' }
+    ]
+  },
+  {
+    id: 'shadow_impatient',
+    character: 'shadow-milk',
+    text: '*ревниво* Время?! ВРЕМЯ?! *тени вспыхивают* Кто-то другой занимает твои мысли! Признайся!',
+    choices: [
+      { text: 'Убедить что никого нет', nextId: 'calm_jealousy', affection: 5 },
+      { text: 'Не оправдываться', nextId: 'stand_ground', affection: -10 },
+      { text: 'Признаться в чувствах', nextId: 'confession_under_pressure', affection: 15 }
+    ]
+  },
+  {
+    id: 'calm_jealousy',
+    character: 'black-sapphire',
+    text: 'Никого нет! *берёт за лицо* Смотрите на меня. Только вы. Просто дайте мне время ПОНЯТЬ это.',
+    choices: [
+      { text: 'Продолжить', nextId: 'jealousy_calmed' }
+    ]
+  },
+  {
+    id: 'jealousy_calmed',
+    character: 'shadow-milk',
+    text: '*успокаивается* Хорошо... *гладит щёку* Но не заставляй меня ждать слишком долго. Моё терпение... ограничено.',
+    choices: [
+      { text: 'Поцеловать в лоб', nextId: 'sweet_moment', affection: 10 },
+      { text: 'Кивнуть', nextId: 'tension_continues', affection: 3 }
+    ]
+  },
+  {
+    id: 'sweet_moment',
+    character: 'shadow-milk',
+    text: '*закрывает глаза от прикосновения* Ты... такой нежный. *обнимает* Я подожду. Для тебя.',
+    choices: [
+      { text: 'Продолжить', nextId: 'slow_burn_ending' }
+    ]
+  },
+  {
+    id: 'slow_burn_ending',
+    character: 'narrator',
+    text: 'КОНЦОВКА: Медленное тление. Их отношения развиваются медленно, каждый момент близости ценен. Shadow Milk учится терпению. Их любовь растёт естественно.',
+    choices: [
+      { text: 'Начать заново', nextId: 'start' }
+    ]
+  },
+  {
+    id: 'tension_continues',
+    character: 'narrator',
+    text: 'КОНЦОВКА: Напряжённое ожидание. Black Sapphire обдумывает чувства, Shadow Milk ждёт. Воздух между ними наэлектризован. Каждая встреча — испытание.',
+    choices: [
+      { text: 'Начать заново', nextId: 'start' }
+    ]
+  },
+  {
+    id: 'stand_ground',
+    character: 'black-sapphire',
+    text: 'Я не обязан оправдываться. Вы не владеете мной.',
+    choices: [
+      { text: 'Продолжить', nextId: 'power_struggle' }
+    ]
+  },
+  {
+    id: 'power_struggle',
+    character: 'shadow-milk',
+    text: '*прижимает к стене* Не владею? *опасно тихо* Ты МОЙ сын. Ты живёшь в МОЁМ замке. Ты... *почти касается губами* ...будешь моим.',
+    choices: [
+      { text: 'Поддаться', nextId: 'forced_intimacy', affection: 10 },
+      { text: 'Оттолкнуть', nextId: 'conflict_ending', affection: -25 }
+    ]
+  },
+  {
+    id: 'forced_intimacy',
+    character: 'narrator',
+    text: 'Shadow Milk целует Black Sapphire жёстко, требовательно. Black Sapphire сопротивляется только мгновение...',
+    choices: [
+      { text: 'Продолжить', nextId: 'dominant_ending' }
+    ]
+  },
+  {
+    id: 'dominant_ending',
+    character: 'narrator',
+    text: 'КОНЦОВКА: Доминирование. Shadow Milk берёт то, что хочет. Black Sapphire подчиняется. Их отношения основаны на власти и подчинении. Тёмные, но страстные.',
+    choices: [
+      { text: 'Начать заново', nextId: 'start' }
+    ]
+  },
+  {
+    id: 'conflict_ending',
+    character: 'narrator',
+    text: 'КОНЦОВКА: Борьба воль. Black Sapphire отталкивает Shadow Milk. Начинается война между ними. Ни один не уступает. Замок разрывается от их конфликта.',
+    choices: [
+      { text: 'Начать заново', nextId: 'start' }
+    ]
+  },
+  {
+    id: 'confession_under_pressure',
+    character: 'black-sapphire',
+    text: '*срывается* Хорошо! Я чувствую к вам больше чем должен! Вы довольны?!',
+    choices: [
+      { text: 'Продолжить', nextId: 'shadow_triumphant' }
+    ]
+  },
+  {
+    id: 'shadow_triumphant',
+    character: 'shadow-milk',
+    text: '*улыбается победно* Наконец-то... *обнимает* Признание — первый шаг. *шепчет* Теперь я знаю, что ты мой.',
+    choices: [
+      { text: 'Продолжить', nextId: 'reluctant_love_ending' }
+    ]
+  },
+  {
+    id: 'reluctant_love_ending',
+    character: 'narrator',
+    text: 'КОНЦОВКА: Вынужденное признание. Black Sapphire признался под давлением. Теперь Shadow Milk знает правду и не отпустит. Их любовь реальна, но началась с принуждения.',
     choices: [
       { text: 'Начать заново', nextId: 'start' }
     ]
