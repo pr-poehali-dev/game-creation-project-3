@@ -775,7 +775,324 @@ const dialogueData: DialogueNode[] = [
     text: 'Сад ночных цветов светится странным фиолетовым светом. Здесь царит относительный покой. Вы видите незнакомца среди цветов...',
     choices: [
       { text: 'Подойти к незнакомцу', nextId: 'stranger_intro' },
-      { text: 'Остаться наедине с мыслями', nextId: 'garden_alone' }
+      { text: 'Остаться наедине с мыслями', nextId: 'garden_alone' },
+      { text: 'Прогуляться по саду', nextId: 'garden_walk' }
+    ]
+  },
+  {
+    id: 'garden_walk',
+    character: 'narrator',
+    text: 'Black Sapphire расправляет крылья, наслаждаясь тишиной сада. Лунный свет отражается в его демонских крылышках...',
+    choices: [
+      { text: 'Взлететь над садом', nextId: 'fly_garden', affection: 0 },
+      { text: 'Присесть у фонтана', nextId: 'fountain_scene' }
+    ]
+  },
+  {
+    id: 'fly_garden',
+    character: 'narrator',
+    text: 'Sapphire взлетает, его крылья раскрываются полностью. Внизу слышится восхищённый смех...',
+    choices: [
+      { text: 'Посмотреть вниз', nextId: 'shadow_watches_flying' }
+    ]
+  },
+  {
+    id: 'shadow_watches_flying',
+    character: 'shadow-milk',
+    text: '*смотрит снизу* Мой прекрасный летучий мышонок... *восхищённо* Как изящно ты летаешь. Спустись ко мне.',
+    choices: [
+      { text: 'Спуститься к отцу', nextId: 'land_near_shadow', affection: 8 },
+      { text: 'Продолжить летать', nextId: 'tease_flying', affection: -5 }
+    ]
+  },
+  {
+    id: 'land_near_shadow',
+    character: 'shadow-milk',
+    text: '*когда Sapphire приземляется* Какой же ты красивый в полёте... *тянется к крыльям* Позволь мне прикоснуться к ним.',
+    choices: [
+      { text: 'Разрешить погладить крылья', nextId: 'wings_touch', affection: 15 },
+      { text: 'Отказать мягко', nextId: 'wings_refuse', affection: 3 },
+      { text: 'Сложить крылья', nextId: 'wings_hide', affection: -3 }
+    ]
+  },
+  {
+    id: 'wings_touch',
+    character: 'black-sapphire',
+    text: '*краснеет* Хорошо, отец... но... осторожно. Они очень чувствительны.',
+    choices: [
+      { text: 'Продолжить', nextId: 'shadow_strokes_wings' }
+    ]
+  },
+  {
+    id: 'shadow_strokes_wings',
+    character: 'shadow-milk',
+    text: '*нежно проводит пальцами по крыльям* Такие мягкие... такие нежные... *шепчет* Мой летучий мышонок дрожит от моих прикосновений?',
+    choices: [
+      { text: 'Признаться что приятно', nextId: 'wings_pleasure', affection: 20 },
+      { text: 'Попросить остановиться', nextId: 'wings_too_much', affection: 5 },
+      { text: 'Тихо застонать', nextId: 'wings_intimate', affection: 25 }
+    ]
+  },
+  {
+    id: 'wings_pleasure',
+    character: 'black-sapphire',
+    text: '*прикрывает глаза* Да... это... приятно, отец. *крылья слегка подрагивают*',
+    choices: [
+      { text: 'Продолжить', nextId: 'garden_intimate_wings' }
+    ]
+  },
+  {
+    id: 'garden_intimate_wings',
+    character: 'shadow-milk',
+    text: '*продолжает гладить, всё смелее* Я знал, что тебе понравится... *приближается сзади* Твои крылышки реагируют на каждое моё движение. Они такие чувствительные, мой мышонок...',
+    choices: [
+      { text: 'Позволить продолжить', nextId: 'wings_more_garden', affection: 30 },
+      { text: 'Попросить быть нежнее', nextId: 'wings_gentle', affection: 15 }
+    ]
+  },
+  {
+    id: 'wings_more_garden',
+    character: 'shadow-milk',
+    text: '*гладит обеими руками по всей длине крыльев, массирует основание* Ты так красиво реагируешь... *его дыхание учащается* Я мог бы делать это вечно, мой летучий мышонок.',
+    choices: [
+      { text: 'Развернуться к нему', nextId: 'face_to_face_garden', affection: 25 },
+      { text: 'Остаться так', nextId: 'wings_sensual', affection: 30 }
+    ]
+  },
+  {
+    id: 'face_to_face_garden',
+    character: 'shadow-milk',
+    text: '*смотрит в глаза* Ты доверяешь мне свои крылья... самое чувствительное место. *берёт за руки* Это значит больше, чем ты думаешь.',
+    choices: [
+      { text: 'Поцеловать его', nextId: 'garden_kiss_wings', affection: 30 },
+      { text: 'Обнять', nextId: 'garden_hug_wings', affection: 20 }
+    ]
+  },
+  {
+    id: 'garden_kiss_wings',
+    character: 'narrator',
+    text: 'КОНЦОВКА: Интимность крыльев. После того как Sapphire позволил Shadow Milk касаться его крыльев, их связь стала ещё глубже. Shadow Milk единственный кто знает эту тайну — и использует её, чтобы дарить удовольствие своему мышонку.',
+    choices: [
+      { text: 'Начать заново', nextId: 'start' }
+    ]
+  },
+  {
+    id: 'garden_hug_wings',
+    character: 'shadow-milk',
+    text: '*обнимает, крылья Sapphire окутывают их обоих* Ты укрываешь нас своими крыльями... *тихо* Мой защитник.',
+    choices: [
+      { text: 'Продолжить', nextId: 'wings_cocoon_ending' }
+    ]
+  },
+  {
+    id: 'wings_sensual',
+    character: 'narrator',
+    text: 'КОНЦОВКА: Чувствительность. Shadow Milk открывает секрет чувствительности крыльев Sapphire. Теперь это их особая интимность — прикосновения к крыльям заменяют слова. Только Shadow Milk имеет право касаться крыльев своего мышонка.',
+    choices: [
+      { text: 'Начать заново', nextId: 'start' }
+    ]
+  },
+  {
+    id: 'wings_gentle',
+    character: 'shadow-milk',
+    text: '*смягчает прикосновения* Как скажешь, мой чувствительный мышонок. *нежно гладит* Я буду бережным с твоими прекрасными крылышками.',
+    choices: [
+      { text: 'Развернуться к нему', nextId: 'face_to_face_garden', affection: 15 },
+      { text: 'Остаться в объятиях', nextId: 'garden_tender_ending' }
+    ]
+  },
+  {
+    id: 'wings_too_much',
+    character: 'black-sapphire',
+    text: '*дрожит* Отец, остановитесь... это слишком... чувствительно...',
+    choices: [
+      { text: 'Продолжить', nextId: 'shadow_stops_wings' }
+    ]
+  },
+  {
+    id: 'shadow_stops_wings',
+    character: 'shadow-milk',
+    text: '*убирает руки* Прости, мой мышонок. *целует в лоб* Я увлёкся. Спасибо, что позволил хотя бы ненадолго.',
+    choices: [
+      { text: 'Обнять его', nextId: 'garden_hug_wings', affection: 10 },
+      { text: 'Вернуться в замок', nextId: 'explore_castle' }
+    ]
+  },
+  {
+    id: 'wings_intimate',
+    character: 'black-sapphire',
+    text: '*тихо стонет* Ах... отец... *крылья дрожат сильнее*',
+    choices: [
+      { text: 'Продолжить', nextId: 'wings_discovery' }
+    ]
+  },
+  {
+    id: 'wings_discovery',
+    character: 'shadow-milk',
+    text: '*замирает* Ты... *гладит увереннее* ...реагируешь так сильно? *хриплым голосом* Мой мышонок, твои крылья — эрогенная зона?',
+    choices: [
+      { text: 'Признаться смущённо', nextId: 'wings_sensitive_truth', affection: 25 },
+      { text: 'Попросить остановиться', nextId: 'shadow_stops_wings', affection: 10 }
+    ]
+  },
+  {
+    id: 'wings_sensitive_truth',
+    character: 'black-sapphire',
+    text: '*краснеет сильно* Да... поэтому я не даю их трогать... это... очень интимно...',
+    choices: [
+      { text: 'Продолжить', nextId: 'shadow_possessive_wings' }
+    ]
+  },
+  {
+    id: 'shadow_possessive_wings',
+    character: 'shadow-milk',
+    text: '*довольный* То есть я первый, кому ты разрешил? *гладит ещё нежнее* Мой мышонок доверяет мне самое интимное... Я буду единственным, кто прикасается к ним.',
+    choices: [
+      { text: 'Кивнуть', nextId: 'wings_bonding', affection: 30 },
+      { text: 'Попросить продолжить', nextId: 'wings_climax_garden', affection: 35 }
+    ]
+  },
+  {
+    id: 'wings_bonding',
+    character: 'narrator',
+    text: 'КОНЦОВКА: Доверие крыльев. Sapphire доверил Shadow Milk самое чувствительное — свои крылья. Это стало их особой связью. Shadow Milk обожает гладить крылышки своего мышонка, а Sapphire позволяет только ему.',
+    choices: [
+      { text: 'Начать заново', nextId: 'start' }
+    ]
+  },
+  {
+    id: 'wings_climax_garden',
+    character: 'narrator',
+    text: 'КОНЦОВКА: Экстаз летучего мышонка. Shadow Milk открывает, что может доставлять Sapphire невероятное удовольствие только прикосновениями к крыльям. Это становится их тайным ритуалом — в саду, под луной, Shadow Milk ласкает чувствительные крылышки своего мышонка.',
+    choices: [
+      { text: 'Начать заново', nextId: 'start' }
+    ]
+  },
+  {
+    id: 'wings_refuse',
+    character: 'black-sapphire',
+    text: '*мягко* Прости, отец... они слишком чувствительны. Я не готов.',
+    choices: [
+      { text: 'Продолжить', nextId: 'shadow_disappointed_wings' }
+    ]
+  },
+  {
+    id: 'shadow_disappointed_wings',
+    character: 'shadow-milk',
+    text: '*опускает руку, явно разочарован* ...Понимаю. *вздыхает* Однажды ты позволишь мне, мой мышонок?',
+    choices: [
+      { text: 'Может быть позже', nextId: 'wings_promise', affection: 5 },
+      { text: 'Вряд ли', nextId: 'wings_never', affection: -5 }
+    ]
+  },
+  {
+    id: 'wings_promise',
+    character: 'shadow-milk',
+    text: '*улыбается* Я буду ждать этого дня. *бережно* И заслужу это право.',
+    choices: [
+      { text: 'Продолжить', nextId: 'slow_burn_ending' }
+    ]
+  },
+  {
+    id: 'wings_never',
+    character: 'shadow-milk',
+    text: '*грустно* ...Понимаю. *отворачивается* Пойдём обратно.',
+    choices: [
+      { text: 'Продолжить', nextId: 'tension_continues' }
+    ]
+  },
+  {
+    id: 'wings_hide',
+    character: 'black-sapphire',
+    text: '*быстро складывает крылья за спину* Нет, извините.',
+    choices: [
+      { text: 'Продолжить', nextId: 'shadow_hurt_wings' }
+    ]
+  },
+  {
+    id: 'shadow_hurt_wings',
+    character: 'shadow-milk',
+    text: '*обижен* Даже мне ты не позволяешь? *голос холодеет* Своему отцу?',
+    choices: [
+      { text: 'Объяснить про чувствительность', nextId: 'explain_wings_sensitivity', affection: 5 },
+      { text: 'Стоять на своём', nextId: 'refuse_firmly_wings', affection: -10 }
+    ]
+  },
+  {
+    id: 'explain_wings_sensitivity',
+    character: 'black-sapphire',
+    text: 'Они очень чувствительны, отец. Когда к ним прикасаются... это слишком интимно.',
+    choices: [
+      { text: 'Продолжить', nextId: 'shadow_understands_wings' }
+    ]
+  },
+  {
+    id: 'shadow_understands_wings',
+    character: 'shadow-milk',
+    text: '*понимает* О... *смотрит на крылья с новым интересом* Интимно, говоришь? *шаг ближе* Тем более хочу прикоснуться.',
+    choices: [
+      { text: 'Позволить', nextId: 'wings_touch', affection: 15 },
+      { text: 'Всё равно отказать', nextId: 'refuse_firmly_wings', affection: -5 }
+    ]
+  },
+  {
+    id: 'refuse_firmly_wings',
+    character: 'black-sapphire',
+    text: 'Нет. Это моя граница.',
+    choices: [
+      { text: 'Продолжить', nextId: 'shadow_accepts_boundary' }
+    ]
+  },
+  {
+    id: 'shadow_accepts_boundary',
+    character: 'shadow-milk',
+    text: '*после паузы* ...Хорошо. *натянуто улыбается* Я уважаю твои границы, мой мышонок.',
+    choices: [
+      { text: 'Продолжить', nextId: 'boundaries_maintained' }
+    ]
+  },
+  {
+    id: 'tease_flying',
+    character: 'black-sapphire',
+    text: '*смеётся сверху* Поймайте меня сначала, отец!',
+    choices: [
+      { text: 'Продолжить', nextId: 'shadow_watches_lovingly' }
+    ]
+  },
+  {
+    id: 'shadow_watches_lovingly',
+    character: 'shadow-milk',
+    text: '*смотрит с обожанием* Игривый мышонок... *смеётся* Хорошо, но когда ты устанешь и спустишься — я потребую свою награду!',
+    choices: [
+      { text: 'Спуститься', nextId: 'land_near_shadow', affection: 10 },
+      { text: 'Улететь в замок', nextId: 'explore_castle' }
+    ]
+  },
+  {
+    id: 'fountain_scene',
+    character: 'narrator',
+    text: 'В глубине сада находится древний фонтан. Вода светится мягким светом...',
+    choices: [
+      { text: 'Исследовать фонтан', nextId: 'fountain_magic' },
+      { text: 'Вернуться', nextId: 'garden_walk' }
+    ]
+  },
+  {
+    id: 'fountain_magic',
+    character: 'narrator',
+    text: 'Это Фонтан Истины. Его вода показывает истинные чувства...',
+    choices: [
+      { text: 'Выпить воды', nextId: 'truth_revealed', affection: 10 },
+      { text: 'Не пить', nextId: 'garden_walk' }
+    ]
+  },
+  {
+    id: 'truth_revealed',
+    character: 'narrator',
+    text: 'Вода показывает правду — вы любите Shadow Milk не как отца...',
+    choices: [
+      { text: 'Принять истину', nextId: 'fountain_confession', affection: 20 },
+      { text: 'Отвергнуть', nextId: 'deny_feelings', affection: -10 }
     ]
   },
   {
@@ -784,7 +1101,7 @@ const dialogueData: DialogueNode[] = [
     text: '*размышляет* Моя жизнь... мой отец... всё так сложно. Я люблю его, но его поведение...',
     choices: [
       { text: 'Вернуться в замок', nextId: 'explore_castle' },
-      { text: 'Заметить незнакомца', nextId: 'stranger_intro' }
+      { text: 'Заметить Shadow Milk', nextId: 'garden_encounter' }
     ]
   },
   {
