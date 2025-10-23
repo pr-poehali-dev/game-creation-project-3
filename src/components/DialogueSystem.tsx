@@ -11,7 +11,7 @@ interface DialogueChoice {
 
 interface DialogueNode {
   id: string;
-  character: 'shadow-milk' | 'black-sapphire' | 'narrator';
+  character: 'shadow-milk' | 'black-sapphire' | 'narrator' | 'mysterious-stranger' | 'servant';
   text: string;
   choices?: DialogueChoice[];
   background?: string;
@@ -21,9 +21,11 @@ const dialogueData: DialogueNode[] = [
   {
     id: 'start',
     character: 'narrator',
-    text: 'Королевство теней. Мрачный замок утопает в вечной тьме. Shadow Milk проводит всё больше времени со своим сыном...',
+    text: 'Королевство теней. Мрачный замок утопает в вечной тьме. Выберите путь своей истории...',
     choices: [
-      { text: 'Продолжить', nextId: 'scene1' }
+      { text: 'История с Shadow Milk (основная ветка)', nextId: 'scene1' },
+      { text: 'Исследовать замок самостоятельно', nextId: 'explore_castle' },
+      { text: 'Встреча с таинственным незнакомцем', nextId: 'stranger_intro' }
     ]
   },
   {
@@ -200,6 +202,214 @@ const dialogueData: DialogueNode[] = [
     choices: [
       { text: 'Начать заново', nextId: 'start' }
     ]
+  },
+  {
+    id: 'explore_castle',
+    character: 'narrator',
+    text: 'Black Sapphire решает исследовать замок. Тёмные коридоры полны тайн. Куда направиться?',
+    choices: [
+      { text: 'В библиотеку теней', nextId: 'library' },
+      { text: 'В тронный зал', nextId: 'throne_room' },
+      { text: 'В сад ночных цветов', nextId: 'garden' }
+    ]
+  },
+  {
+    id: 'library',
+    character: 'narrator',
+    text: 'Древняя библиотека хранит запретные знания. На столе лежит открытая книга о прошлом королевства...',
+    choices: [
+      { text: 'Прочитать книгу', nextId: 'read_book' },
+      { text: 'Услышать шаги за спиной', nextId: 'library_encounter' }
+    ]
+  },
+  {
+    id: 'read_book',
+    character: 'narrator',
+    text: 'В книге описано, как Shadow Milk стал владыкой теней. Его прошлое полно боли и предательства. Внезапно книга захлопывается сама собой...',
+    choices: [
+      { text: 'Продолжить чтение', nextId: 'book_reveal', affection: -5 },
+      { text: 'Отойти от книги', nextId: 'library_encounter' }
+    ]
+  },
+  {
+    id: 'book_reveal',
+    character: 'narrator',
+    text: 'Вы узнаёте шокирующую правду: Shadow Milk когда-то был обычным существом, превращённым в шута силами тьмы. Его безумие — результат проклятия...',
+    choices: [
+      { text: 'Вернуться к отцу с этим знанием', nextId: 'confront_with_truth' },
+      { text: 'Продолжить исследование', nextId: 'explore_castle' }
+    ]
+  },
+  {
+    id: 'confront_with_truth',
+    character: 'black-sapphire',
+    text: 'Отец... я знаю правду о вашем прошлом. О проклятии.',
+    choices: [
+      { text: 'Продолжить', nextId: 'shadow_reaction_truth' }
+    ]
+  },
+  {
+    id: 'shadow_reaction_truth',
+    character: 'shadow-milk',
+    text: '*замирает, его смех стихает* Ты... нашёл библиотеку. *голос становится опасно тихим* Теперь ты знаешь слишком много, мой мальчик.',
+    choices: [
+      { text: 'Предложить помощь в снятии проклятия', nextId: 'help_curse', affection: 20 },
+      { text: 'Использовать знание как преимущество', nextId: 'use_knowledge', affection: -15 }
+    ]
+  },
+  {
+    id: 'help_curse',
+    character: 'shadow-milk',
+    text: '*удивлён* Ты... хочешь помочь мне? *на мгновение его безумие исчезает* Никто никогда... Спасибо, мой драгоценный сапфир.',
+    choices: [
+      { text: 'Хорошая концовка: Поиск лекарства', nextId: 'good_ending' }
+    ]
+  },
+  {
+    id: 'good_ending',
+    character: 'narrator',
+    text: 'Black Sapphire и Shadow Milk вместе начинают искать способ снять проклятие. Их отношения становятся здоровее. Впереди долгий путь, но они вместе.',
+    choices: [
+      { text: 'Начать заново', nextId: 'start' }
+    ]
+  },
+  {
+    id: 'use_knowledge',
+    character: 'shadow-milk',
+    text: '*глаза вспыхивают яростью* Ты СМЕЕШЬ использовать это против меня?! *тени вокруг сгущаются* Я покажу тебе настоящую тьму!',
+    choices: [
+      { text: 'Плохая концовка: Власть теней', nextId: 'bad_ending' }
+    ]
+  },
+  {
+    id: 'bad_ending',
+    character: 'narrator',
+    text: 'Shadow Milk в ярости заточает Black Sapphire в теневой темнице. Королевство погружается во тьму. Их отношения разрушены навсегда.',
+    choices: [
+      { text: 'Начать заново', nextId: 'start' }
+    ]
+  },
+  {
+    id: 'library_encounter',
+    character: 'servant',
+    text: 'Простите, молодой господин. Владыка теней ищет вас. Он... в плохом настроении.',
+    choices: [
+      { text: 'Пойти к отцу', nextId: 'scene1', affection: 5 },
+      { text: 'Попросить слугу помочь скрыться', nextId: 'hide_path' }
+    ]
+  },
+  {
+    id: 'hide_path',
+    character: 'servant',
+    text: '*шепотом* Есть секретный проход в сад. Но если владыка узнает, что я помогал... *дрожит от страха*',
+    choices: [
+      { text: 'Воспользоваться проходом', nextId: 'garden', affection: -8 },
+      { text: 'Не подвергать слугу опасности', nextId: 'scene1', affection: 3 }
+    ]
+  },
+  {
+    id: 'throne_room',
+    character: 'narrator',
+    text: 'Величественный тронный зал пуст. Трон Shadow Milk окутан тенями. Вы чувствуете его присутствие...',
+    choices: [
+      { text: 'Сесть на трон', nextId: 'sit_throne' },
+      { text: 'Покинуть зал', nextId: 'explore_castle' }
+    ]
+  },
+  {
+    id: 'sit_throne',
+    character: 'shadow-milk',
+    text: '*появляется из теней* Ах, мой дерзкий мальчик хочет примерить мою корону? *смеётся* Как очаровательно... и опасно.',
+    choices: [
+      { text: 'Объяснить, что это была ошибка', nextId: 'apologize_throne', affection: -5 },
+      { text: 'Заявить о своих правах', nextId: 'claim_throne', affection: -20 }
+    ]
+  },
+  {
+    id: 'apologize_throne',
+    character: 'black-sapphire',
+    text: 'Простите, отец. Я просто... хотел понять, каково это — быть владыкой.',
+    choices: [
+      { text: 'Продолжить', nextId: 'shadow_understands' }
+    ]
+  },
+  {
+    id: 'shadow_understands',
+    character: 'shadow-milk',
+    text: 'Однажды ты унаследуешь мою власть, мой сапфир. Но сейчас... *протягивает руку* Иди сюда.',
+    choices: [
+      { text: 'Взять его руку', nextId: 'scene2_close', affection: 10 },
+      { text: 'Остаться у трона', nextId: 'stay', affection: -3 }
+    ]
+  },
+  {
+    id: 'claim_throne',
+    character: 'shadow-milk',
+    text: '*ярость* ПРЕДАТЕЛЬ! Ты хочешь занять МОЁ место?! *тени атакуют*',
+    choices: [
+      { text: 'Принять наказание', nextId: 'punishment_ending' }
+    ]
+  },
+  {
+    id: 'punishment_ending',
+    character: 'narrator',
+    text: 'Shadow Milk наказывает Black Sapphire за дерзость. Их отношения становятся токсичными. Королевство погружается в хаос.',
+    choices: [
+      { text: 'Начать заново', nextId: 'start' }
+    ]
+  },
+  {
+    id: 'garden',
+    character: 'narrator',
+    text: 'Сад ночных цветов светится странным фиолетовым светом. Здесь царит относительный покой. Вы видите незнакомца среди цветов...',
+    choices: [
+      { text: 'Подойти к незнакомцу', nextId: 'stranger_intro' },
+      { text: 'Остаться наедине с мыслями', nextId: 'garden_alone' }
+    ]
+  },
+  {
+    id: 'garden_alone',
+    character: 'black-sapphire',
+    text: '*размышляет* Моя жизнь... мой отец... всё так сложно. Я люблю его, но его поведение...',
+    choices: [
+      { text: 'Вернуться в замок', nextId: 'explore_castle' },
+      { text: 'Заметить незнакомца', nextId: 'stranger_intro' }
+    ]
+  },
+  {
+    id: 'stranger_intro',
+    character: 'mysterious-stranger',
+    text: 'Приветствую, наследник теней. Я путешественник из далёких земель. Я знаю о твоей ситуации... и могу помочь.',
+    choices: [
+      { text: 'Выслушать предложение', nextId: 'stranger_offer' },
+      { text: 'Прогнать незнакомца', nextId: 'reject_stranger' }
+    ]
+  },
+  {
+    id: 'stranger_offer',
+    character: 'mysterious-stranger',
+    text: 'У меня есть артефакт, способный разорвать узы проклятия. Твой отец станет свободен... но цена велика. Ты должен покинуть королевство навсегда.',
+    choices: [
+      { text: 'Принять предложение', nextId: 'freedom_ending', affection: -30 },
+      { text: 'Отказаться', nextId: 'reject_stranger', affection: 15 }
+    ]
+  },
+  {
+    id: 'freedom_ending',
+    character: 'narrator',
+    text: 'Black Sapphire принимает артефакт и освобождает Shadow Milk от проклятия. Затем покидает королевство навсегда. Shadow Milk остаётся один, свободный, но разбитый утратой сына.',
+    choices: [
+      { text: 'Начать заново', nextId: 'start' }
+    ]
+  },
+  {
+    id: 'reject_stranger',
+    character: 'black-sapphire',
+    text: 'Нет. Я не покину отца. Мы найдём другой способ.',
+    choices: [
+      { text: 'Вернуться к отцу', nextId: 'scene1', affection: 10 },
+      { text: 'Продолжить исследование', nextId: 'explore_castle' }
+    ]
   }
 ];
 
@@ -291,6 +501,8 @@ const DialogueSystem = ({ onClose }: DialogueSystemProps) => {
     switch (character) {
       case 'shadow-milk': return 'Shadow Milk';
       case 'black-sapphire': return 'Black Sapphire';
+      case 'mysterious-stranger': return 'Таинственный незнакомец';
+      case 'servant': return 'Слуга';
       default: return '';
     }
   };
@@ -299,6 +511,8 @@ const DialogueSystem = ({ onClose }: DialogueSystemProps) => {
     switch (character) {
       case 'shadow-milk': return 'Drama';
       case 'black-sapphire': return 'Gem';
+      case 'mysterious-stranger': return 'Users';
+      case 'servant': return 'User';
       default: return 'BookText';
     }
   };
