@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Card } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import Icon from '@/components/ui/icon';
+import DialogueSystem from '@/components/DialogueSystem';
 
 interface Character {
   id: string;
@@ -30,8 +31,11 @@ const characters: Character[] = [
 
 const Index = () => {
   const [selectedCharacter, setSelectedCharacter] = useState<string | null>(null);
+  const [isDialogueOpen, setIsDialogueOpen] = useState(false);
 
   return (
+    <>
+      {isDialogueOpen && <DialogueSystem onClose={() => setIsDialogueOpen(false)} />}
     <div className="min-h-screen bg-gradient-to-b from-[#1a0033] via-[#2d1b4e] to-[#1a0033] relative overflow-hidden">
       <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjAwIiBoZWlnaHQ9IjIwMCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZGVmcz48cGF0dGVybiBpZD0iZ3JpZCIgd2lkdGg9IjQwIiBoZWlnaHQ9IjQwIiBwYXR0ZXJuVW5pdHM9InVzZXJTcGFjZU9uVXNlIj48cGF0aCBkPSJNIDQwIDAgTCAwIDAgMCA0MCIgZmlsbD0ibm9uZSIgc3Ryb2tlPSJyZ2JhKDEzOSwgMCwgMjU1LCAwLjEpIiBzdHJva2Utd2lkdGg9IjEiLz48L3BhdHRlcm4+PC9kZWZzPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjZ3JpZCkiLz48L3N2Zz4=')] opacity-20"></div>
       
@@ -124,13 +128,17 @@ const Index = () => {
             </p>
           </div>
           
-          <Button className="w-full mt-8 bg-accent hover:bg-accent/80 text-accent-foreground text-lg py-6 font-semibold">
+          <Button 
+            className="w-full mt-8 bg-accent hover:bg-accent/80 text-accent-foreground text-lg py-6 font-semibold"
+            onClick={() => setIsDialogueOpen(true)}
+          >
             <Icon name="Play" size={24} className="mr-2" />
             Начать историю
           </Button>
         </Card>
       </div>
     </div>
+    </>
   );
 };
 
