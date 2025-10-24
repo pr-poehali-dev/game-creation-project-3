@@ -1133,10 +1133,607 @@ const dialogueData: DialogueNode[] = [
   {
     id: 'reject_stranger',
     character: 'black-sapphire',
-    text: 'Нет. Я не покину отца. Мы найдём другой способ.',
+    text: 'Нет. Уходите. Я не нуждаюсь в вашей помощи.',
     choices: [
-      { text: 'Вернуться к отцу', nextId: 'scene1', affection: 10 },
-      { text: 'Продолжить исследование', nextId: 'explore_castle' }
+      { text: 'Прогнать незнакомца', nextId: 'stranger_leaves' }
+    ]
+  },
+  {
+    id: 'stranger_leaves',
+    character: 'mysterious-stranger',
+    text: '*кланяется* Как пожелаешь, наследник. Но предложение останется в силе. *растворяется в тенях*',
+    choices: [
+      { text: 'Продолжить', nextId: 'shadow_appears_jealous' }
+    ]
+  },
+  {
+    id: 'shadow_appears_jealous',
+    character: 'shadow-milk',
+    text: '*внезапно появляется из теней, глаза горят яростью* КТО это был?! *хватает за плечи* Что этот МУЖЧИНА хотел от тебя?!',
+    choices: [
+      { text: 'Объяснить честно', nextId: 'explain_stranger', affection: 10 },
+      { text: 'Сказать что ничего важного', nextId: 'downplay_stranger', affection: 5 },
+      { text: 'Спросить почему он ревнует', nextId: 'question_jealousy', affection: 15 }
+    ]
+  },
+  {
+    id: 'explain_stranger',
+    character: 'black-sapphire',
+    text: 'Это был незнакомец. Он предлагал помочь разорвать ваше проклятие, но я отказался. Я не покину вас, отец.',
+    choices: [
+      { text: 'Продолжить', nextId: 'shadow_relieved_possessive' }
+    ]
+  },
+  {
+    id: 'shadow_relieved_possessive',
+    character: 'shadow-milk',
+    text: '*обнимает крепко, почти удушающе* Мой мальчик... *дрожащим голосом* Ты выбрал меня... *целует в макушку* Никогда не разговаривай с другими мужчинами. НИКОГДА. *прижимает к себе* Только я... только мой мышонок.',
+    choices: [
+      { text: 'Согласиться', nextId: 'possessive_accepted', affection: 20 },
+      { text: 'Сказать что это слишком', nextId: 'resist_control', affection: -10 },
+      { text: 'Обнять в ответ', nextId: 'mutual_possession', affection: 25 }
+    ]
+  },
+  {
+    id: 'possessive_accepted',
+    character: 'black-sapphire',
+    text: '*прижимается* Хорошо, отец. Только вы. Я ваш.',
+    choices: [
+      { text: 'Продолжить', nextId: 'shadow_marks_possession' }
+    ]
+  },
+  {
+    id: 'shadow_marks_possession',
+    character: 'shadow-milk',
+    text: '*целует страстно* Мой... *ведёт руку к крыльям* Позволь мне отметить тебя. Чтобы все знали — ты принадлежишь мне. *смотрит в глаза* Твои крылья... дай мне прикоснуться к ним.',
+    choices: [
+      { text: 'Позволить коснуться крыльев', nextId: 'marking_wings', affection: 30 },
+      { text: 'Предложить другую метку', nextId: 'other_marking', affection: 20 },
+      { text: 'Отказать', nextId: 'refuse_marking', affection: -15 }
+    ]
+  },
+  {
+    id: 'marking_wings',
+    character: 'shadow-milk',
+    text: '*нежно гладит крылья, затем целует основание* Теперь мои метки на твоих крыльях... *прикусывает нежную кожу у основания крыла* Каждый, кто увидит синяки здесь, поймёт — у тебя есть хозяин.',
+    choices: [
+      { text: 'Застонать', nextId: 'wings_marked_intimate', affection: 35 },
+      { text: 'Терпеть', nextId: 'wings_marked_stoic', affection: 25 }
+    ]
+  },
+  {
+    id: 'wings_marked_intimate',
+    character: 'black-sapphire',
+    text: '*стонет тихо* А-ах... отец... крылья... они так чувствительны... *дрожит*',
+    choices: [
+      { text: 'Продолжить', nextId: 'shadow_aroused_wings' }
+    ]
+  },
+  {
+    id: 'shadow_aroused_wings',
+    character: 'shadow-milk',
+    text: '*дыхание учащается* Твой стон... *продолжает целовать и покусывать крылья* Мой чувствительный мышонок... Я буду единственным, кто слышит эти звуки. *оставляет следы по всему основанию крыльев*',
+    choices: [
+      { text: 'Позволить продолжить', nextId: 'wings_fully_marked', affection: 40 },
+      { text: 'Попросить остановиться', nextId: 'enough_marks', affection: 20 }
+    ]
+  },
+  {
+    id: 'wings_fully_marked',
+    character: 'narrator',
+    text: 'КОНЦОВКА: Помеченные крылья. Shadow Milk оставляет множество меток на чувствительных крыльях Sapphire. Теперь каждый раз, когда Sapphire расправляет крылья, он чувствует эти следы прикосновений отца. Они стали физическим напоминанием о владении.',
+    choices: [
+      { text: 'Начать заново', nextId: 'start' }
+    ]
+  },
+  {
+    id: 'enough_marks',
+    character: 'black-sapphire',
+    text: '*дрожит* Достаточно, отец... я уже весь ваш...',
+    choices: [
+      { text: 'Продолжить', nextId: 'shadow_satisfied_marking' }
+    ]
+  },
+  {
+    id: 'shadow_satisfied_marking',
+    character: 'shadow-milk',
+    text: '*отстраняется, любуясь своей работой* Прекрасно... *гладит помеченные крылья* Теперь ты действительно мой. *нежно* И все будут знать.',
+    choices: [
+      { text: 'Продолжить', nextId: 'possessive_love_ending' }
+    ]
+  },
+  {
+    id: 'possessive_love_ending',
+    character: 'narrator',
+    text: 'КОНЦОВКА: Собственническая любовь. После инцидента с незнакомцем Shadow Milk стал ещё более собственническим. Sapphire принял это — он действительно принадлежит отцу, душой и телом. Их любовь токсична, но они счастливы в ней.',
+    choices: [
+      { text: 'Начать заново', nextId: 'start' }
+    ]
+  },
+  {
+    id: 'wings_marked_stoic',
+    character: 'black-sapphire',
+    text: '*сжимает кулаки, терпит боль и удовольствие* Делайте что хотите... я ваш...',
+    choices: [
+      { text: 'Продолжить', nextId: 'shadow_satisfied_marking' }
+    ]
+  },
+  {
+    id: 'other_marking',
+    character: 'black-sapphire',
+    text: 'Крылья слишком... личное. Может... шею? Или ключицы?',
+    choices: [
+      { text: 'Продолжить', nextId: 'shadow_marks_neck' }
+    ]
+  },
+  {
+    id: 'shadow_marks_neck',
+    character: 'shadow-milk',
+    text: '*кивает* Шея прекрасно подойдёт. *наклоняется к шее* Все будут видеть. *начинает целовать и покусывать* Мой... только мой...',
+    choices: [
+      { text: 'Наклонить голову давая доступ', nextId: 'neck_fully_marked', affection: 30 },
+      { text: 'Обнять его', nextId: 'intimate_marking', affection: 25 }
+    ]
+  },
+  {
+    id: 'neck_fully_marked',
+    character: 'narrator',
+    text: 'Shadow Milk покрывает шею Sapphire множеством меток — от подбородка до ключиц. Назавтра все в замке будут знать, что наследник принадлежит владыке теней...',
+    choices: [
+      { text: 'Продолжить', nextId: 'possessive_love_ending' }
+    ]
+  },
+  {
+    id: 'intimate_marking',
+    character: 'shadow-milk',
+    text: '*между поцелуями* Обнимаешь меня... *целует шею* ...пока я метю тебя... *прикусывает* Мой послушный мышонок.',
+    choices: [
+      { text: 'Продолжить', nextId: 'possessive_love_ending' }
+    ]
+  },
+  {
+    id: 'refuse_marking',
+    character: 'black-sapphire',
+    text: 'Нет. Я не вещь, которую можно метить.',
+    choices: [
+      { text: 'Продолжить', nextId: 'shadow_angry_refused' }
+    ]
+  },
+  {
+    id: 'shadow_angry_refused',
+    character: 'shadow-milk',
+    text: '*отпускает резко, в глазах боль и ярость* Не вещь?! *смеётся горько* Тогда ЗАЧЕМ ты сказал что ты мой?! *отворачивается* Уходи. Сейчас же.',
+    choices: [
+      { text: 'Попытаться объясниться', nextId: 'apologize_marking', affection: 5 },
+      { text: 'Уйти', nextId: 'conflict_ending', affection: -30 }
+    ]
+  },
+  {
+    id: 'apologize_marking',
+    character: 'black-sapphire',
+    text: 'Прости... я не то имел в виду... я просто... это слишком быстро...',
+    choices: [
+      { text: 'Продолжить', nextId: 'shadow_calms_down' }
+    ]
+  },
+  {
+    id: 'shadow_calms_down',
+    character: 'shadow-milk',
+    text: '*глубокий вдох* ...*поворачивается* Тогда скажи мне. *серьёзно* Ты мой или нет? Честно.',
+    choices: [
+      { text: 'Да, я ваш', nextId: 'reconciliation', affection: 20 },
+      { text: 'Не знаю', nextId: 'uncertainty_path', affection: 0 },
+      { text: 'Нет', nextId: 'conflict_ending', affection: -40 }
+    ]
+  },
+  {
+    id: 'reconciliation',
+    character: 'shadow-milk',
+    text: '*обнимает бережно* Прости за вспышку. *целует лоб* Я просто... не выношу мысли о том, что кто-то другой может забрать тебя.',
+    choices: [
+      { text: 'Пообещать что никто не заберёт', nextId: 'promise_loyalty', affection: 25 },
+      { text: 'Обнять в ответ', nextId: 'silent_comfort', affection: 15 }
+    ]
+  },
+  {
+    id: 'promise_loyalty',
+    character: 'black-sapphire',
+    text: 'Никто не заберёт меня от вас. Обещаю. Я выбираю вас. Каждый день.',
+    choices: [
+      { text: 'Продолжить', nextId: 'mutual_love_ending' }
+    ]
+  },
+  {
+    id: 'mutual_love_ending',
+    character: 'narrator',
+    text: 'КОНЦОВКА: Взаимный выбор. После испытания ревностью они укрепили свою связь. Sapphire добровольно выбирает Shadow Milk каждый день. Shadow Milk учится доверять. Их любовь становится крепче.',
+    choices: [
+      { text: 'Начать заново', nextId: 'start' }
+    ]
+  },
+  {
+    id: 'silent_comfort',
+    character: 'narrator',
+    text: 'Они стоят в обнимку, без слов понимая друг друга. Ревность Shadow Milk утихает в объятиях Sapphire...',
+    choices: [
+      { text: 'Продолжить', nextId: 'slow_burn_ending' }
+    ]
+  },
+  {
+    id: 'uncertainty_path',
+    character: 'shadow-milk',
+    text: '*вздыхает* Не знаешь... *грустная улыбка* Понимаю. *гладит по голове* Тогда у нас ещё есть время разобраться.',
+    choices: [
+      { text: 'Продолжить', nextId: 'slow_burn_ending' }
+    ]
+  },
+  {
+    id: 'mutual_possession',
+    character: 'black-sapphire',
+    text: '*обнимает крепко* Я ваш... *прижимается* ...а вы мой. Так ведь?',
+    choices: [
+      { text: 'Продолжить', nextId: 'shadow_surprised_happy' }
+    ]
+  },
+  {
+    id: 'resist_control',
+    character: 'black-sapphire',
+    text: '*отстраняется* Это слишком, отец. Я не могу обещать никогда не разговаривать с другими. Это нездоровая ревность.',
+    choices: [
+      { text: 'Продолжить', nextId: 'shadow_rejects_boundary' }
+    ]
+  },
+  {
+    id: 'shadow_rejects_boundary',
+    character: 'shadow-milk',
+    text: '*хватает за подбородок* Нездоровая? *усмехается* Мой мальчик, вся наша связь нездорова. *приближается* Но ты не можешь уйти. Ты нужен мне.',
+    choices: [
+      { text: 'Поддаться', nextId: 'give_in_control', affection: 10 },
+      { text: 'Вырваться', nextId: 'fight_control', affection: -20 }
+    ]
+  },
+  {
+    id: 'give_in_control',
+    character: 'black-sapphire',
+    text: '*опускает взгляд* ...Хорошо. Я не буду разговаривать с другими.',
+    choices: [
+      { text: 'Продолжить', nextId: 'shadow_marks_possession' }
+    ]
+  },
+  {
+    id: 'fight_control',
+    character: 'black-sapphire',
+    text: '*вырывается* Нет! Я не игрушка! Я не позволю вам контролировать меня!',
+    choices: [
+      { text: 'Продолжить', nextId: 'shadow_furious' }
+    ]
+  },
+  {
+    id: 'shadow_furious',
+    character: 'shadow-milk',
+    text: '*тени взрываются вокруг* НЕ ИГРУШКА?! *голос эхом* Тогда что ты для меня?! НИЧТО?! *приближается опасно* Скажи прямо сейчас — ты мой или нет?!',
+    choices: [
+      { text: 'Признать что его', nextId: 'forced_admission', affection: 5 },
+      { text: 'Отказаться', nextId: 'conflict_ending', affection: -35 },
+      { text: 'Убежать', nextId: 'escape_attempt', affection: -30 }
+    ]
+  },
+  {
+    id: 'forced_admission',
+    character: 'black-sapphire',
+    text: '*со слезами* Да... да, я ваш... только успокойтесь, пожалуйста...',
+    choices: [
+      { text: 'Продолжить', nextId: 'shadow_calms_possessive' }
+    ]
+  },
+  {
+    id: 'shadow_calms_possessive',
+    character: 'shadow-milk',
+    text: '*тени успокаиваются, обнимает* Вот так... *гладит по голове* Мой хороший мальчик. *целует слёзы* Не плачь. Я не хотел пугать. Просто люблю слишком сильно.',
+    choices: [
+      { text: 'Прильнуть к нему', nextId: 'toxic_comfort', affection: 15 },
+      { text: 'Отстраниться', nextId: 'distance_created', affection: -10 }
+    ]
+  },
+  {
+    id: 'toxic_comfort',
+    character: 'narrator',
+    text: 'КОНЦОВКА: Токсичная любовь. Sapphire прощает вспышки Shadow Milk, принимая их как часть его любви. Их отношения нездоровы, но Sapphire не может уйти. Любовь и страх переплетаются.',
+    choices: [
+      { text: 'Начать заново', nextId: 'start' }
+    ]
+  },
+  {
+    id: 'distance_created',
+    character: 'black-sapphire',
+    text: '*отстраняется* Мне нужно время... подумать...',
+    choices: [
+      { text: 'Продолжить', nextId: 'distant_ending' }
+    ]
+  },
+  {
+    id: 'escape_attempt',
+    character: 'narrator',
+    text: 'Sapphire пытается убежать, расправив крылья для полёта...',
+    choices: [
+      { text: 'Продолжить', nextId: 'shadow_catches' }
+    ]
+  },
+  {
+    id: 'shadow_catches',
+    character: 'shadow-milk',
+    text: '*тени ловят крылья, притягивают обратно* Ты думал УЛЕТЕТЬ от меня?! *хватает за крылья жёстко* Эти крылья... *сжимает* ...больше не твои. Они мои. ТЫ мой!',
+    choices: [
+      { text: 'Закричать от боли', nextId: 'wings_hurt', affection: -25 },
+      { text: 'Умолять остановиться', nextId: 'beg_release', affection: -15 }
+    ]
+  },
+  {
+    id: 'wings_hurt',
+    character: 'black-sapphire',
+    text: '*кричит* БОЛЬНО! Отпустите! Вы делаете больно крыльям!',
+    choices: [
+      { text: 'Продолжить', nextId: 'shadow_realizes' }
+    ]
+  },
+  {
+    id: 'shadow_realizes',
+    character: 'shadow-milk',
+    text: '*резко отпускает, ужас в глазах* Я... что я... *смотрит на свои руки* Твои крылья... я повредил твои крылья... *падает на колени* Прости... прости мой мышонок...',
+    choices: [
+      { text: 'Простить', nextId: 'forgive_hurt', affection: 10 },
+      { text: 'Не простить', nextId: 'unforgivable_ending', affection: -30 },
+      { text: 'Улететь пока можешь', nextId: 'escape_success', affection: -25 }
+    ]
+  },
+  {
+    id: 'forgive_hurt',
+    character: 'black-sapphire',
+    text: '*трогает крылья* Я... я в порядке. Не сильно... *опускается рядом* Вы не хотели...',
+    choices: [
+      { text: 'Продолжить', nextId: 'redemption_moment' }
+    ]
+  },
+  {
+    id: 'redemption_moment',
+    character: 'shadow-milk',
+    text: '*обнимает аккуратно, дрожит* Никогда больше. Клянусь. Я никогда не причиню боль твоим крыльям. *целует повреждённые места бережно* Прости... прости...',
+    choices: [
+      { text: 'Обнять в ответ', nextId: 'healing_moment', affection: 20 },
+      { text: 'Остаться настороже', nextId: 'cautious_acceptance', affection: 10 }
+    ]
+  },
+  {
+    id: 'healing_moment',
+    character: 'narrator',
+    text: 'КОНЦОВКА: Момент осознания. Shadow Milk осознал, что зашёл слишком далеко. Он клянётся быть лучше. Sapphire даёт ему второй шанс. Их путь к здоровым отношениям начинается с этого момента раскаяния.',
+    choices: [
+      { text: 'Начать заново', nextId: 'start' }
+    ]
+  },
+  {
+    id: 'cautious_acceptance',
+    character: 'narrator',
+    text: 'КОНЦОВКА: Осторожное доверие. Sapphire прощает, но не забывает. Shadow Milk должен заслужить доверие обратно. Они пытаются построить что-то лучшее, но шрамы остаются.',
+    choices: [
+      { text: 'Начать заново', nextId: 'start' }
+    ]
+  },
+  {
+    id: 'unforgivable_ending',
+    character: 'narrator',
+    text: 'КОНЦОВКА: Непростительно. Sapphire не может простить боль, причинённую его чувствительным крыльям. Он уходит от Shadow Milk. Владыка теней остаётся один, разрушенный осознанием того, что уничтожил единственное, что любил.',
+    choices: [
+      { text: 'Начать заново', nextId: 'start' }
+    ]
+  },
+  {
+    id: 'escape_success',
+    character: 'narrator',
+    text: 'КОНЦОВКА: Побег. Несмотря на боль, Sapphire расправляет крылья и улетает из замка. Shadow Milk не преследует — он слишком потрясён собственными действиями. Sapphire свободен, но одинок.',
+    choices: [
+      { text: 'Начать заново', nextId: 'start' }
+    ]
+  },
+  {
+    id: 'beg_release',
+    character: 'black-sapphire',
+    text: '*со слезами* Пожалуйста... отпустите крылья... пожалуйста, отец...',
+    choices: [
+      { text: 'Продолжить', nextId: 'shadow_realizes' }
+    ]
+  },
+  {
+    id: 'downplay_stranger',
+    character: 'black-sapphire',
+    text: 'Никто важный. Просто путник. Я прогнал его.',
+    choices: [
+      { text: 'Продолжить', nextId: 'shadow_suspicious' }
+    ]
+  },
+  {
+    id: 'shadow_suspicious',
+    character: 'shadow-milk',
+    text: '*прищуривается* Никто важный? *приближается* Тогда почему он подходил именно к тебе? *берёт за подбородок* И почему ты ОДИН в саду, где каждый может приблизиться?',
+    choices: [
+      { text: 'Сказать правду', nextId: 'explain_stranger', affection: 5 },
+      { text: 'Защититься', nextId: 'defend_independence', affection: -5 },
+      { text: 'Успокоить его', nextId: 'reassure_shadow', affection: 10 }
+    ]
+  },
+  {
+    id: 'defend_independence',
+    character: 'black-sapphire',
+    text: 'Я имею право гулять один. И разговаривать с кем хочу.',
+    choices: [
+      { text: 'Продолжить', nextId: 'shadow_rejects_boundary' }
+    ]
+  },
+  {
+    id: 'reassure_shadow',
+    character: 'black-sapphire',
+    text: '*кладёт руку на его щёку* Никто мне не нужен, кроме вас. Это был просто странник. Я отослал его.',
+    choices: [
+      { text: 'Продолжить', nextId: 'shadow_calms_possessive' }
+    ]
+  },
+  {
+    id: 'question_jealousy',
+    character: 'black-sapphire',
+    text: 'Вы... ревнуете? *смотрит в глаза* Почему? Я же ваш сын...',
+    choices: [
+      { text: 'Продолжить', nextId: 'shadow_confession_jealousy' }
+    ]
+  },
+  {
+    id: 'shadow_confession_jealousy',
+    character: 'shadow-milk',
+    text: '*отпускает, отворачивается* Ты не понимаешь... *сжимает кулаки* Когда я вижу кого-то рядом с тобой... *поворачивается резко* ...я хочу разорвать их на части. *подходит ближе* Ты МОЙ. Не сын. МОЙ.',
+    choices: [
+      { text: 'Спросить в каком смысле', nextId: 'clarify_relationship', affection: 15 },
+      { text: 'Сказать что вы его', nextId: 'confirm_his', affection: 20 },
+      { text: 'Отстраниться испуганно', nextId: 'scared_of_intensity', affection: -10 }
+    ]
+  },
+  {
+    id: 'clarify_relationship',
+    character: 'black-sapphire',
+    text: 'Мой... в каком смысле? Как сын? Или... *краснеет* ...как-то иначе?',
+    choices: [
+      { text: 'Продолжить', nextId: 'shadow_reveals_feelings' }
+    ]
+  },
+  {
+    id: 'shadow_reveals_feelings',
+    character: 'shadow-milk',
+    text: '*смеётся темно* Как сын? *приближается вплотную* Нет, мой мышонок. Я хочу тебя как МУЖЧИНА хочет мужчину. *касается щеки* Как возлюбленный. Как вторая половина. Навсегда.',
+    choices: [
+      { text: 'Признаться в ответных чувствах', nextId: 'mutual_confession', affection: 30 },
+      { text: 'Сказать что нужно время', nextId: 'need_time', affection: 10 },
+      { text: 'Отказать', nextId: 'reject_advances', affection: -20 }
+    ]
+  },
+  {
+    id: 'mutual_confession',
+    character: 'black-sapphire',
+    text: '*прижимается лбом* Я тоже... я тоже хочу вас. Не как отца. Как... *выдыхает* ...как мужчину. Как любовь.',
+    choices: [
+      { text: 'Продолжить', nextId: 'first_real_kiss' }
+    ]
+  },
+  {
+    id: 'first_real_kiss',
+    character: 'shadow-milk',
+    text: '*целует страстно, но нежно* Наконец... *между поцелуями* ...ты признал... *обнимает* ...мой мышонок... моя любовь...',
+    choices: [
+      { text: 'Углубить поцелуй', nextId: 'passionate_kiss', affection: 35 },
+      { text: 'Обнять крепко', nextId: 'tender_embrace', affection: 30 }
+    ]
+  },
+  {
+    id: 'passionate_kiss',
+    character: 'narrator',
+    text: 'КОНЦОВКА: Взаимное признание. После ревности к незнакомцу они наконец признались в истинных чувствах. Больше нет отца и сына — только двое влюблённых. Их запретная любовь расцветает.',
+    choices: [
+      { text: 'Начать заново', nextId: 'start' }
+    ]
+  },
+  {
+    id: 'tender_embrace',
+    character: 'narrator',
+    text: 'КОНЦОВКА: Нежное принятие. Они обнимаются, наконец честные друг с другом. Больше нет лжи и недосказанности. Только любовь — странная, запретная, но настоящая.',
+    choices: [
+      { text: 'Начать заново', nextId: 'start' }
+    ]
+  },
+  {
+    id: 'need_time',
+    character: 'black-sapphire',
+    text: 'Это... многое. Мне нужно время подумать. Переварить это.',
+    choices: [
+      { text: 'Продолжить', nextId: 'shadow_patient' }
+    ]
+  },
+  {
+    id: 'reject_advances',
+    character: 'black-sapphire',
+    text: 'Нет. Это неправильно. Вы мой отец. Я не могу...',
+    choices: [
+      { text: 'Продолжить', nextId: 'shadow_heartbroken' }
+    ]
+  },
+  {
+    id: 'shadow_heartbroken',
+    character: 'shadow-milk',
+    text: '*отшатывается* Не можешь... *голос ломается* Понял. *тени сгущаются вокруг него* Тогда уходи. Я не хочу тебя видеть.',
+    choices: [
+      { text: 'Уйти', nextId: 'heartbreak_ending' },
+      { text: 'Попытаться утешить', nextId: 'comfort_despite_rejection', affection: 5 }
+    ]
+  },
+  {
+    id: 'heartbreak_ending',
+    character: 'narrator',
+    text: 'КОНЦОВКА: Разбитое сердце. Отказ Sapphire разбивает Shadow Milk. Он замыкается в себе, становится ещё более безумным. Sapphire остаётся в замке, но между ними пропасть. Их отношения разрушены.',
+    choices: [
+      { text: 'Начать заново', nextId: 'start' }
+    ]
+  },
+  {
+    id: 'comfort_despite_rejection',
+    character: 'black-sapphire',
+    text: '*осторожно обнимает* Я не хочу причинять вам боль... я люблю вас... просто... как отца...',
+    choices: [
+      { text: 'Продолжить', nextId: 'shadow_accepts_platonic' }
+    ]
+  },
+  {
+    id: 'shadow_accepts_platonic',
+    character: 'shadow-milk',
+    text: '*обнимает в ответ, плачет тихо* ...Достаточно. Если ты рядом... достаточно. *прижимает* Не уходи хотя бы.',
+    choices: [
+      { text: 'Пообещать остаться', nextId: 'platonic_ending', affection: 15 }
+    ]
+  },
+  {
+    id: 'platonic_ending',
+    character: 'narrator',
+    text: 'КОНЦОВКА: Платоническая любовь. Shadow Milk принимает, что Sapphire любит его только как отца. Это причиняет боль, но он предпочитает иметь сына рядом, чем потерять его совсем. Их отношения остаются близкими, но не романтическими.',
+    choices: [
+      { text: 'Начать заново', nextId: 'start' }
+    ]
+  },
+  {
+    id: 'confirm_his',
+    character: 'black-sapphire',
+    text: '*смотрит прямо в глаза* Я ваш. Полностью. Только ваш.',
+    choices: [
+      { text: 'Продолжить', nextId: 'shadow_overjoyed' }
+    ]
+  },
+  {
+    id: 'scared_of_intensity',
+    character: 'black-sapphire',
+    text: '*отступает* Вы пугаете меня... эта интенсивность...',
+    choices: [
+      { text: 'Продолжить', nextId: 'shadow_tries_calm' }
+    ]
+  },
+  {
+    id: 'shadow_tries_calm',
+    character: 'shadow-milk',
+    text: '*глубокий вдох, пытается успокоиться* Прости... *протягивает руку* Я не хочу пугать тебя. Просто... *опускает руку* ...ты для меня всё.',
+    choices: [
+      { text: 'Взять его руку', nextId: 'give_chance', affection: 15 },
+      { text: 'Отказать', nextId: 'distant_ending', affection: -15 }
+    ]
+  },
+  {
+    id: 'give_chance',
+    character: 'black-sapphire',
+    text: '*берёт руку* Обещайте... быть терпеливым. Это всё новое для меня.',
+    choices: [
+      { text: 'Продолжить', nextId: 'shadow_patient' }
     ]
   }
 ];
