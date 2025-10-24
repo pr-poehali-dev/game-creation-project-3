@@ -621,7 +621,935 @@ const dialogueData: DialogueNode[] = [
     choices: [
       { text: 'В библиотеку теней', nextId: 'library' },
       { text: 'В тронный зал', nextId: 'throne_room' },
-      { text: 'В сад ночных цветов', nextId: 'garden' }
+      { text: 'В сад ночных цветов', nextId: 'garden' },
+      { text: 'Дождаться ночи', nextId: 'wait_for_night' }
+    ]
+  },
+  {
+    id: 'wait_for_night',
+    character: 'narrator',
+    text: 'Солнце садится за горизонт. Замок погружается в темноту. Ночь — время когда тени оживают и замок показывает своё истинное лицо...',
+    choices: [
+      { text: 'Продолжить', nextId: 'night_begins' }
+    ]
+  },
+  {
+    id: 'night_begins',
+    character: 'narrator',
+    text: 'Полночь. Замок теней преображается. Коридоры светятся призрачным светом, слышны шорохи и шёпот. Вы в своих покоях...',
+    choices: [
+      { text: 'Лечь спать', nextId: 'try_sleep' },
+      { text: 'Выйти в коридор', nextId: 'night_corridor' },
+      { text: 'Подождать у окна', nextId: 'window_night', affection: 0 }
+    ]
+  },
+  {
+    id: 'try_sleep',
+    character: 'narrator',
+    text: 'Вы ложитесь в постель, но не можете уснуть. Ночной замок слишком шумный. Вдруг дверь тихо открывается...',
+    choices: [
+      { text: 'Притвориться спящим', nextId: 'pretend_sleep', affection: 0 },
+      { text: 'Повернуться к двери', nextId: 'see_visitor' }
+    ]
+  },
+  {
+    id: 'pretend_sleep',
+    character: 'narrator',
+    text: 'Вы закрываете глаза. Слышите тихие шаги, приближающиеся к кровати. Кто-то садится на край постели...',
+    choices: [
+      { text: 'Продолжить притворяться', nextId: 'shadow_watches_sleep', affection: 5 },
+      { text: 'Открыть глаза', nextId: 'catch_shadow', affection: 0 }
+    ]
+  },
+  {
+    id: 'shadow_watches_sleep',
+    character: 'shadow-milk',
+    text: '*шепчет, думая что Sapphire спит* Мой прекрасный мышонок... *гладит волосы* Так мирно спишь... *вздыхает* Если бы ты знал, как сильно я хочу... *целует в лоб* ...лечь рядом и не отпускать никогда.',
+    choices: [
+      { text: 'Продолжить слушать', nextId: 'shadow_monologue', affection: 10 },
+      { text: 'Открыть глаза', nextId: 'catch_shadow_confession', affection: 15 }
+    ]
+  },
+  {
+    id: 'shadow_monologue',
+    character: 'shadow-milk',
+    text: '*продолжает гладить* Ты для меня... всё. *голос дрожит* Я знаю, это неправильно. Ты мой сын. Но... *наклоняется ближе* ...я не могу перестать хотеть тебя. Каждую ночь прихожу сюда... просто смотреть...',
+    choices: [
+      { text: 'Открыть глаза и признаться', nextId: 'reveal_awake_confession', affection: 25 },
+      { text: 'Молчать дальше', nextId: 'shadow_leaves_sadly', affection: 5 }
+    ]
+  },
+  {
+    id: 'reveal_awake_confession',
+    character: 'black-sapphire',
+    text: '*открывает глаза* Я не сплю... и слышал всё.',
+    choices: [
+      { text: 'Продолжить', nextId: 'shadow_caught_vulnerable' }
+    ]
+  },
+  {
+    id: 'shadow_caught_vulnerable',
+    character: 'shadow-milk',
+    text: '*застывает в шоке* Ты... *пытается отстраниться* Ты слышал... *паника в глазах* Я не хотел... прости... *встаёт*',
+    choices: [
+      { text: 'Схватить за руку', nextId: 'stop_him_leaving', affection: 25 },
+      { text: 'Признаться в ответных чувствах', nextId: 'night_confession', affection: 30 },
+      { text: 'Отпустить', nextId: 'let_him_go_sad', affection: -10 }
+    ]
+  },
+  {
+    id: 'stop_him_leaving',
+    character: 'black-sapphire',
+    text: '*хватает за руку* Не уходите. *садится на кровати* Я... я тоже думаю о вас. По ночам.',
+    choices: [
+      { text: 'Продолжить', nextId: 'shadow_hope' }
+    ]
+  },
+  {
+    id: 'shadow_hope',
+    character: 'shadow-milk',
+    text: '*поворачивается медленно* Что? *смотрит с надеждой* Повтори... что ты сказал?',
+    choices: [
+      { text: 'Признаться полностью', nextId: 'full_night_confession', affection: 35 },
+      { text: 'Пригласить остаться', nextId: 'invite_stay', affection: 30 }
+    ]
+  },
+  {
+    id: 'full_night_confession',
+    character: 'black-sapphire',
+    text: 'Я думаю о вас. Каждую ночь. *краснеет* Представляю... что было бы, если бы вы пришли. Легли рядом. *смотрит в глаза* Я хочу этого.',
+    choices: [
+      { text: 'Продолжить', nextId: 'shadow_joins_bed' }
+    ]
+  },
+  {
+    id: 'shadow_joins_bed',
+    character: 'shadow-milk',
+    text: '*медленно садится на кровать* Ты уверен? *берёт за руку* Если я лягу рядом... я не знаю, смогу ли сдержаться...',
+    choices: [
+      { text: 'Я хочу чтобы вы легли', nextId: 'share_bed', affection: 35 },
+      { text: 'Просто побудьте рядом', nextId: 'sit_together', affection: 20 },
+      { text: 'Может это слишком быстро', nextId: 'reconsider', affection: 5 }
+    ]
+  },
+  {
+    id: 'share_bed',
+    character: 'narrator',
+    text: 'Shadow Milk ложится рядом с Sapphire. Они лежат лицом к лицу, дыхание смешивается. В темноте комнаты они ближе, чем когда-либо...',
+    choices: [
+      { text: 'Приблизиться', nextId: 'bed_intimacy', affection: 40 },
+      { text: 'Обнять его', nextId: 'bed_embrace', affection: 30 },
+      { text: 'Просто смотреть в глаза', nextId: 'eye_contact', affection: 25 }
+    ]
+  },
+  {
+    id: 'bed_intimacy',
+    character: 'shadow-milk',
+    text: '*когда Sapphire приближается* Мой мышонок... *обнимает* ...так близко... *целует нежно* ...я мечтал об этом...',
+    choices: [
+      { text: 'Углубить поцелуй', nextId: 'bed_passion', affection: 45 },
+      { text: 'Прижаться теснее', nextId: 'bed_cuddle', affection: 35 }
+    ]
+  },
+  {
+    id: 'bed_passion',
+    character: 'narrator',
+    text: 'Поцелуи становятся глубже, руки исследуют тела друг друга. Ночь скрывает их страсть. В темноте постели они перестают быть отцом и сыном...',
+    choices: [
+      { text: 'Продолжить', nextId: 'first_night_together', affection: 50 }
+    ]
+  },
+  {
+    id: 'first_night_together',
+    character: 'narrator',
+    text: 'КОНЦОВКА: Первая ночь. Они проводят ночь вместе, полностью отдаваясь друг другу. Утром просыпаются в объятиях. Больше нет пути назад — они пересекли черту. Теперь они любовники.',
+    choices: [
+      { text: 'Начать заново', nextId: 'start' }
+    ]
+  },
+  {
+    id: 'bed_cuddle',
+    character: 'shadow-milk',
+    text: '*обнимает крепко* Так тепло... *зарывается лицом в волосы* Твой запах... *крылья Sapphire окутывают их* ...наш кокон...',
+    choices: [
+      { text: 'Заснуть в объятиях', nextId: 'sleep_together', affection: 35 },
+      { text: 'Погладить его крылья', nextId: 'mutual_wing_touch', affection: 40 }
+    ]
+  },
+  {
+    id: 'sleep_together',
+    character: 'narrator',
+    text: 'КОНЦОВКА: Совместный сон. Они засыпают в объятиях друг друга. Это становится их ночным ритуалом — Shadow Milk приходит каждую ночь. Они спят вместе, укрытые крыльями Sapphire. Интимность без секса, но полная близость.',
+    choices: [
+      { text: 'Начать заново', nextId: 'start' }
+    ]
+  },
+  {
+    id: 'mutual_wing_touch',
+    character: 'shadow-milk',
+    text: '*когда Sapphire гладит его* А-ах... *удивлённо* Ты... тоже гладишь меня... *его собственные тени обвивают Sapphire* Давай... будем ласкать друг друга...',
+    choices: [
+      { text: 'Продолжить', nextId: 'mutual_pleasure_night', affection: 45 }
+    ]
+  },
+  {
+    id: 'mutual_pleasure_night',
+    character: 'narrator',
+    text: 'КОНЦОВКА: Взаимные ласки. В ночи они исследуют тела друг друга. Shadow Milk гладит чувствительные крылья Sapphire, а тот в ответ касается теней отца. Это становится их особой близостью — равноправной и нежной.',
+    choices: [
+      { text: 'Начать заново', nextId: 'start' }
+    ]
+  },
+  {
+    id: 'bed_embrace',
+    character: 'shadow-milk',
+    text: '*обнимает нежно* Просто держать тебя... *вздыхает счастливо* ...уже достаточно. *прижимает к сердцу* Слышишь? Оно бьётся для тебя.',
+    choices: [
+      { text: 'Продолжить', nextId: 'sleep_together' }
+    ]
+  },
+  {
+    id: 'eye_contact',
+    character: 'shadow-milk',
+    text: '*смотрит в ответ* Твои глаза... *касается щеки* ...даже в темноте вижу их. *шепчет* Что ты видишь в моих?',
+    choices: [
+      { text: 'Безумие', nextId: 'see_madness', affection: 5 },
+      { text: 'Любовь', nextId: 'see_love', affection: 30 },
+      { text: 'Одиночество', nextId: 'see_loneliness', affection: 20 }
+    ]
+  },
+  {
+    id: 'see_madness',
+    character: 'black-sapphire',
+    text: 'Я вижу... безумие. Но не пугающее. Прекрасное безумие.',
+    choices: [
+      { text: 'Продолжить', nextId: 'shadow_accepts_madness' }
+    ]
+  },
+  {
+    id: 'shadow_accepts_madness',
+    character: 'shadow-milk',
+    text: '*смеётся тихо* Да... я безумен. Безумен от любви к тебе. *целует* И ты принимаешь мое безумие?',
+    choices: [
+      { text: 'Принимаю', nextId: 'acceptance_ending', affection: 30 },
+      { text: 'Поцеловать в ответ', nextId: 'bed_passion', affection: 35 }
+    ]
+  },
+  {
+    id: 'see_love',
+    character: 'black-sapphire',
+    text: 'Я вижу любовь. Сильную, всепоглощающую. Немного пугающую. Но... прекрасную.',
+    choices: [
+      { text: 'Продолжить', nextId: 'shadow_love_response' }
+    ]
+  },
+  {
+    id: 'shadow_love_response',
+    character: 'shadow-milk',
+    text: '*глаза увлажняются* Ты видишь... *прижимает руку Sapphire к своей щеке* Да. Я люблю тебя. Больше жизни. *целует ладонь* Скажи... ты тоже?',
+    choices: [
+      { text: 'Я тоже люблю вас', nextId: 'mutual_love_bed', affection: 40 },
+      { text: 'Показать действиями', nextId: 'bed_passion', affection: 35 }
+    ]
+  },
+  {
+    id: 'mutual_love_bed',
+    character: 'narrator',
+    text: 'КОНЦОВКА: Признание в ночи. В темноте постели они признаются в любви. Слова, которые боялись сказать днём, легко текут ночью. Они засыпают, шепча признания друг другу.',
+    choices: [
+      { text: 'Начать заново', nextId: 'start' }
+    ]
+  },
+  {
+    id: 'see_loneliness',
+    character: 'black-sapphire',
+    text: 'Я вижу одиночество. Такое глубокое... вы так долго были один...',
+    choices: [
+      { text: 'Продолжить', nextId: 'shadow_loneliness_response' }
+    ]
+  },
+  {
+    id: 'shadow_loneliness_response',
+    character: 'shadow-milk',
+    text: '*голос ломается* Века... *прижимается лбом* Я был один века. Пока не появился ты. *обнимает* Не оставляй меня снова один...',
+    choices: [
+      { text: 'Пообещать остаться', nextId: 'promise_stay', affection: 30 },
+      { text: 'Обнять крепче', nextId: 'bed_embrace', affection: 25 }
+    ]
+  },
+  {
+    id: 'sit_together',
+    character: 'narrator',
+    text: 'Они сидят на кровати рядом, держась за руки. Говорят обо всём и ни о чём. Ночь проходит в разговорах...',
+    choices: [
+      { text: 'Заснуть на его плече', nextId: 'sleep_on_shoulder', affection: 25 },
+      { text: 'Попросить лечь рядом', nextId: 'share_bed', affection: 30 }
+    ]
+  },
+  {
+    id: 'sleep_on_shoulder',
+    character: 'shadow-milk',
+    text: '*чувствует вес головы на плече* Устал, мой мышонок? *гладит волосы* Спи... я буду рядом.',
+    choices: [
+      { text: 'Продолжить', nextId: 'sleep_together' }
+    ]
+  },
+  {
+    id: 'reconsider',
+    character: 'black-sapphire',
+    text: 'Может... это слишком быстро. Давайте просто... посидим?',
+    choices: [
+      { text: 'Продолжить', nextId: 'sit_together' }
+    ]
+  },
+  {
+    id: 'invite_stay',
+    character: 'black-sapphire',
+    text: '*отодвигается, освобождая место* Останьтесь. Со мной. Эту ночь.',
+    choices: [
+      { text: 'Продолжить', nextId: 'shadow_joins_bed' }
+    ]
+  },
+  {
+    id: 'night_confession',
+    character: 'black-sapphire',
+    text: '*садится* Я слышал. И... *смотрит в глаза* ...я чувствую то же самое. Каждую ночь думаю о вас.',
+    choices: [
+      { text: 'Продолжить', nextId: 'shadow_joins_bed' }
+    ]
+  },
+  {
+    id: 'let_him_go_sad',
+    character: 'narrator',
+    text: 'Shadow Milk уходит, сломленный. Вы остаётесь один в кровати, жалея о своём выборе...',
+    choices: [
+      { text: 'Продолжить', nextId: 'distant_ending' }
+    ]
+  },
+  {
+    id: 'shadow_leaves_sadly',
+    character: 'shadow-milk',
+    text: '*встаёт* Спи, мой мышонок. *целует в лоб последний раз* Я буду любить тебя издалека. *уходит тихо*',
+    choices: [
+      { text: 'Позвать его обратно', nextId: 'call_him_back', affection: 20 },
+      { text: 'Дать уйти', nextId: 'slow_burn_ending', affection: 5 }
+    ]
+  },
+  {
+    id: 'call_him_back',
+    character: 'black-sapphire',
+    text: '*садится резко* Отец! Не уходите! *громче* Я не хочу быть один!',
+    choices: [
+      { text: 'Продолжить', nextId: 'shadow_returns' }
+    ]
+  },
+  {
+    id: 'shadow_returns',
+    character: 'shadow-milk',
+    text: '*останавливается у двери, поворачивается* Ты... звал меня? *шаг обратно* Ты хочешь чтобы я остался?',
+    choices: [
+      { text: 'Да, останьтесь', nextId: 'invite_stay', affection: 25 },
+      { text: 'Протянуть руку', nextId: 'reach_out', affection: 30 }
+    ]
+  },
+  {
+    id: 'reach_out',
+    character: 'black-sapphire',
+    text: '*протягивает руку* Пожалуйста... просто... будьте рядом.',
+    choices: [
+      { text: 'Продолжить', nextId: 'shadow_takes_hand' }
+    ]
+  },
+  {
+    id: 'shadow_takes_hand',
+    character: 'shadow-milk',
+    text: '*берёт руку, садится на кровать* Всегда, мой мышонок. *ложится рядом* Я буду рядом всегда.',
+    choices: [
+      { text: 'Продолжить', nextId: 'sleep_together' }
+    ]
+  },
+  {
+    id: 'catch_shadow',
+    character: 'black-sapphire',
+    text: '*открывает глаза* Отец? Что вы делаете здесь?',
+    choices: [
+      { text: 'Продолжить', nextId: 'shadow_caught' }
+    ]
+  },
+  {
+    id: 'shadow_caught',
+    character: 'shadow-milk',
+    text: '*отшатывается* Я... просто проверял тебя. *встаёт* Хотел убедиться что ты в порядке. *направляется к двери*',
+    choices: [
+      { text: 'Попросить остаться', nextId: 'ask_stay', affection: 20 },
+      { text: 'Отпустить', nextId: 'let_leave', affection: 0 },
+      { text: 'Спросить правду', nextId: 'ask_truth', affection: 10 }
+    ]
+  },
+  {
+    id: 'ask_stay',
+    character: 'black-sapphire',
+    text: 'Не уходите. *тихо* Побудьте со мной. Пожалуйста.',
+    choices: [
+      { text: 'Продолжить', nextId: 'shadow_surprised_happy' }
+    ]
+  },
+  {
+    id: 'let_leave',
+    character: 'narrator',
+    text: 'Shadow Milk уходит. Вы остаётесь один, гадая что бы было, если бы попросили остаться...',
+    choices: [
+      { text: 'Продолжить', nextId: 'slow_burn_ending' }
+    ]
+  },
+  {
+    id: 'ask_truth',
+    character: 'black-sapphire',
+    text: 'Скажите правду. Зачем вы на самом деле пришли?',
+    choices: [
+      { text: 'Продолжить', nextId: 'shadow_admits' }
+    ]
+  },
+  {
+    id: 'shadow_admits',
+    character: 'shadow-milk',
+    text: '*останавливается, не поворачиваясь* ...Я прихожу каждую ночь. *тихо* Смотрю как ты спишь. Это... единственное время, когда могу быть близко без... *замолкает*',
+    choices: [
+      { text: 'Без чего?', nextId: 'shadow_full_admission', affection: 15 },
+      { text: 'Это странно', nextId: 'call_it_weird', affection: -10 },
+      { text: 'Можете быть ближе', nextId: 'offer_closeness', affection: 25 }
+    ]
+  },
+  {
+    id: 'shadow_full_admission',
+    character: 'shadow-milk',
+    text: '*поворачивается* Без страха что ты увидишь как сильно я тебя хочу. *шаг ближе* Что ты убежишь от интенсивности моих чувств.',
+    choices: [
+      { text: 'Я не убегу', nextId: 'promise_not_run', affection: 30 },
+      { text: 'Как вы меня хотите?', nextId: 'question_desire', affection: 20 }
+    ]
+  },
+  {
+    id: 'promise_not_run',
+    character: 'black-sapphire',
+    text: 'Я не убегу. *садится* Покажите мне. Ваши настоящие чувства.',
+    choices: [
+      { text: 'Продолжить', nextId: 'shadow_joins_bed' }
+    ]
+  },
+  {
+    id: 'question_desire',
+    character: 'black-sapphire',
+    text: 'Как именно вы меня хотите, отец?',
+    choices: [
+      { text: 'Продолжить', nextId: 'shadow_reveals_feelings' }
+    ]
+  },
+  {
+    id: 'call_it_weird',
+    character: 'black-sapphire',
+    text: 'Это... немного странно. Приходить ночами, смотреть...',
+    choices: [
+      { text: 'Продолжить', nextId: 'shadow_hurt_leaves' }
+    ]
+  },
+  {
+    id: 'shadow_hurt_leaves',
+    character: 'shadow-milk',
+    text: '*кивает, отворачивается* Понимаю. Больше не буду. Прости. *уходит быстро*',
+    choices: [
+      { text: 'Продолжить', nextId: 'distant_ending' }
+    ]
+  },
+  {
+    id: 'offer_closeness',
+    character: 'black-sapphire',
+    text: 'Вы можете быть ближе. *отодвигается на кровати* Не нужно прятаться. Ложитесь рядом.',
+    choices: [
+      { text: 'Продолжить', nextId: 'shadow_joins_bed' }
+    ]
+  },
+  {
+    id: 'catch_shadow_confession',
+    character: 'black-sapphire',
+    text: '*открывает глаза, смотрит прямо на него* Каждую ночь?',
+    choices: [
+      { text: 'Продолжить', nextId: 'shadow_caught_vulnerable' }
+    ]
+  },
+  {
+    id: 'see_visitor',
+    character: 'narrator',
+    text: 'Вы поворачиваетесь и видите силуэт в дверях. Тени скрывают лицо, но вы узнаёте...',
+    choices: [
+      { text: 'Shadow Milk', nextId: 'shadow_night_visit' }
+    ]
+  },
+  {
+    id: 'shadow_night_visit',
+    character: 'shadow-milk',
+    text: '*тихо* Не спишь, мой мышонок? *входит в комнату* Я думал ты уже в объятиях снов.',
+    choices: [
+      { text: 'Зачем вы пришли?', nextId: 'ask_why_visit', affection: 5 },
+      { text: 'Не могу уснуть', nextId: 'cant_sleep', affection: 10 },
+      { text: 'Я ждал вас', nextId: 'waited_for_you', affection: 25 }
+    ]
+  },
+  {
+    id: 'ask_why_visit',
+    character: 'shadow-milk',
+    text: 'Я... *колеблется* ...хотел убедиться что ты в порядке. Ночью замок опасен.',
+    choices: [
+      { text: 'Сесть на кровати', nextId: 'sit_up_bed', affection: 10 },
+      { text: 'Это всё?', nextId: 'question_motive', affection: 15 }
+    ]
+  },
+  {
+    id: 'sit_up_bed',
+    character: 'black-sapphire',
+    text: '*садится* Со мной всё хорошо. Но... раз вы здесь... хотите остаться ненадолго?',
+    choices: [
+      { text: 'Продолжить', nextId: 'sit_together' }
+    ]
+  },
+  {
+    id: 'question_motive',
+    character: 'black-sapphire',
+    text: 'Это единственная причина? *смотрит в глаза* Или есть что-то ещё?',
+    choices: [
+      { text: 'Продолжить', nextId: 'shadow_admits' }
+    ]
+  },
+  {
+    id: 'cant_sleep',
+    character: 'black-sapphire',
+    text: 'Не могу уснуть. Замок такой шумный ночью. И... *смотрит* ...думал о вас.',
+    choices: [
+      { text: 'Продолжить', nextId: 'shadow_intrigued' }
+    ]
+  },
+  {
+    id: 'shadow_intrigued',
+    character: 'shadow-milk',
+    text: '*садится на край кровати* Думал обо мне? *берёт за руку* Что именно думал, мой мышонок?',
+    choices: [
+      { text: 'О вашей одиночестве', nextId: 'think_loneliness', affection: 15 },
+      { text: 'О том как быть ближе', nextId: 'think_closeness', affection: 25 },
+      { text: 'Просто о вас', nextId: 'think_general', affection: 10 }
+    ]
+  },
+  {
+    id: 'think_loneliness',
+    character: 'black-sapphire',
+    text: 'О том, как вы одиноки. Что у вас никого нет. Что вы каждую ночь один.',
+    choices: [
+      { text: 'Продолжить', nextId: 'shadow_loneliness_response' }
+    ]
+  },
+  {
+    id: 'think_closeness',
+    character: 'black-sapphire',
+    text: 'О том... как было бы... *краснеет* ...если бы мы были ближе. Если бы вы были здесь. Рядом.',
+    choices: [
+      { text: 'Продолжить', nextId: 'shadow_hope' }
+    ]
+  },
+  {
+    id: 'think_general',
+    character: 'black-sapphire',
+    text: 'Просто... о вас. О нас. О том, что между нами.',
+    choices: [
+      { text: 'Продолжить', nextId: 'shadow_asks_more' }
+    ]
+  },
+  {
+    id: 'shadow_asks_more',
+    character: 'shadow-milk',
+    text: 'И что же между нами? *приближается* По-твоему мнению?',
+    choices: [
+      { text: 'Нечто большее чем отец и сын', nextId: 'more_than_family', affection: 25 },
+      { text: 'Не знаю', nextId: 'unsure', affection: 5 },
+      { text: 'Что-то запретное', nextId: 'forbidden', affection: 20 }
+    ]
+  },
+  {
+    id: 'more_than_family',
+    character: 'black-sapphire',
+    text: 'Нечто большее. *смотрит в глаза* Я чувствую это. Вы тоже?',
+    choices: [
+      { text: 'Продолжить', nextId: 'mutual_confession' }
+    ]
+  },
+  {
+    id: 'unsure',
+    character: 'black-sapphire',
+    text: 'Я не знаю. Всё так запутано...',
+    choices: [
+      { text: 'Продолжить', nextId: 'shadow_helps_understand' }
+    ]
+  },
+  {
+    id: 'shadow_helps_understand',
+    character: 'shadow-milk',
+    text: '*гладит щёку* Позволь мне помочь разобраться. *наклоняется ближе* Когда я рядом... что ты чувствуешь?',
+    choices: [
+      { text: 'Безопасность', nextId: 'feel_safe', affection: 15 },
+      { text: 'Волнение', nextId: 'feel_excited', affection: 25 },
+      { text: 'Страх и влечение', nextId: 'feel_mixed', affection: 20 }
+    ]
+  },
+  {
+    id: 'feel_safe',
+    character: 'black-sapphire',
+    text: 'Безопасность. Как будто ничто не может навредить мне.',
+    choices: [
+      { text: 'Продолжить', nextId: 'shadow_promises_protection' }
+    ]
+  },
+  {
+    id: 'shadow_promises_protection',
+    character: 'shadow-milk',
+    text: '*обнимает* И ничто не навредит. Я уничтожу любого, кто попытается. *целует в лоб* Ты в безопасности со мной. Всегда.',
+    choices: [
+      { text: 'Продолжить', nextId: 'sit_together' }
+    ]
+  },
+  {
+    id: 'feel_excited',
+    character: 'black-sapphire',
+    text: 'Волнение. Сердце бьётся быстрее. Дыхание сбивается. *краснеет* Как сейчас.',
+    choices: [
+      { text: 'Продолжить', nextId: 'shadow_aroused' }
+    ]
+  },
+  {
+    id: 'shadow_aroused',
+    character: 'shadow-milk',
+    text: '*дыхание учащается* Твоё сердце бьётся для меня? *кладёт руку на грудь Sapphire* Я чувствую... *подаётся ближе* Оно стучит так быстро...',
+    choices: [
+      { text: 'Поцеловать его', nextId: 'first_real_kiss', affection: 35 },
+      { text: 'Прижаться', nextId: 'bed_embrace', affection: 25 }
+    ]
+  },
+  {
+    id: 'feel_mixed',
+    character: 'black-sapphire',
+    text: 'Страх... и влечение. Одновременно. Вы опасны, но... *выдыхает* ...я хочу быть рядом.',
+    choices: [
+      { text: 'Продолжить', nextId: 'shadow_dark_romance' }
+    ]
+  },
+  {
+    id: 'shadow_dark_romance',
+    character: 'shadow-milk',
+    text: '*усмехается* Опасный и желанный... *прижимает к кровати нежно* Ты играешь с огнём, мой мышонок. *шепчет у уха* Но я не позволю тебе сгореть. Только согреешься.',
+    choices: [
+      { text: 'Сдаться влечению', nextId: 'bed_passion', affection: 40 },
+      { text: 'Попросить быть нежным', nextId: 'ask_gentle', affection: 25 }
+    ]
+  },
+  {
+    id: 'ask_gentle',
+    character: 'black-sapphire',
+    text: 'Будьте нежным со мной. Пожалуйста. Это всё новое...',
+    choices: [
+      { text: 'Продолжить', nextId: 'shadow_gentle' }
+    ]
+  },
+  {
+    id: 'shadow_gentle',
+    character: 'shadow-milk',
+    text: '*смягчает хватку* Конечно, мой мышонок. *целует нежно* Мы будем двигаться с твоей скоростью. *ложится рядом* Просто... позволь мне быть близко.',
+    choices: [
+      { text: 'Продолжить', nextId: 'sleep_together' }
+    ]
+  },
+  {
+    id: 'forbidden',
+    character: 'black-sapphire',
+    text: 'Что-то запретное. Неправильное. Но... я не могу перестать чувствовать это.',
+    choices: [
+      { text: 'Продолжить', nextId: 'shadow_embraces_forbidden' }
+    ]
+  },
+  {
+    id: 'shadow_embraces_forbidden',
+    character: 'shadow-milk',
+    text: '*смеётся темно* Запретное — самое сладкое. *обнимает* Пусть мир считает нас неправильными. *целует шею* В этом замке, в этой ночи — только мы. И наши правила.',
+    choices: [
+      { text: 'Продолжить', nextId: 'bed_passion' }
+    ]
+  },
+  {
+    id: 'waited_for_you',
+    character: 'black-sapphire',
+    text: '*тихо* Я ждал вас. Каждую ночь жду. Надеюсь что вы придёте.',
+    choices: [
+      { text: 'Продолжить', nextId: 'shadow_overjoyed' }
+    ]
+  },
+  {
+    id: 'night_corridor',
+    character: 'narrator',
+    text: 'Вы выходите в коридор. Стены светятся призрачным светом. Тени двигаются сами по себе. Вдалеке слышны шаги...',
+    choices: [
+      { text: 'Спрятаться', nextId: 'hide_corridor', affection: 0 },
+      { text: 'Пойти на звук', nextId: 'follow_sound', affection: 5 },
+      { text: 'Позвать', nextId: 'call_out', affection: 10 }
+    ]
+  },
+  {
+    id: 'hide_corridor',
+    character: 'narrator',
+    text: 'Вы прячетесь в нише. Шаги приближаются. Мимо проходит Shadow Milk, явно направляясь к вашим покоям...',
+    choices: [
+      { text: 'Выйти из укрытия', nextId: 'reveal_self', affection: 10 },
+      { text: 'Следовать за ним', nextId: 'follow_shadow', affection: 5 }
+    ]
+  },
+  {
+    id: 'reveal_self',
+    character: 'black-sapphire',
+    text: '*выходит* Отец? Вы меня искали?',
+    choices: [
+      { text: 'Продолжить', nextId: 'shadow_caught' }
+    ]
+  },
+  {
+    id: 'follow_shadow',
+    character: 'narrator',
+    text: 'Вы следуете за Shadow Milk. Он входит в ваши покои, подходит к кровати, видит что её пусто... паникует.',
+    choices: [
+      { text: 'Войти', nextId: 'enter_room', affection: 15 }
+    ]
+  },
+  {
+    id: 'enter_room',
+    character: 'black-sapphire',
+    text: '*с порога* Ищете меня?',
+    choices: [
+      { text: 'Продолжить', nextId: 'shadow_relieved' }
+    ]
+  },
+  {
+    id: 'shadow_relieved',
+    character: 'shadow-milk',
+    text: '*поворачивается резко* Ты! *подбегает, обнимает* Где ты был?! Я пришёл и тебя не было! *прижимает* Я думал...',
+    choices: [
+      { text: 'Успокоить его', nextId: 'calm_shadow', affection: 20 },
+      { text: 'Спросить зачем приходил', nextId: 'ask_why_visit', affection: 10 }
+    ]
+  },
+  {
+    id: 'calm_shadow',
+    character: 'black-sapphire',
+    text: '*гладит по спине* Я здесь. Всё хорошо. Просто вышел прогуляться.',
+    choices: [
+      { text: 'Продолжить', nextId: 'shadow_calms_possessive' }
+    ]
+  },
+  {
+    id: 'follow_sound',
+    character: 'narrator',
+    text: 'Вы идёте на звук шагов. За поворотом видите Shadow Milk, идущего по коридору с задумчивым видом...',
+    choices: [
+      { text: 'Окликнуть', nextId: 'call_out', affection: 10 },
+      { text: 'Следовать тихо', nextId: 'follow_shadow', affection: 0 }
+    ]
+  },
+  {
+    id: 'call_out',
+    character: 'black-sapphire',
+    text: 'Отец? Это вы?',
+    choices: [
+      { text: 'Продолжить', nextId: 'shadow_turns' }
+    ]
+  },
+  {
+    id: 'shadow_turns',
+    character: 'shadow-milk',
+    text: '*поворачивается* Мой мышонок? *удивлён* Почему ты не спишь? Ночь глубокая.',
+    choices: [
+      { text: 'Не могу уснуть', nextId: 'cant_sleep', affection: 10 },
+      { text: 'А вы почему бродите?', nextId: 'ask_his_reason', affection: 5 },
+      { text: 'Искал вас', nextId: 'looking_for_you', affection: 20 }
+    ]
+  },
+  {
+    id: 'ask_his_reason',
+    character: 'black-sapphire',
+    text: 'А вы? Почему вы бродите по замку ночью?',
+    choices: [
+      { text: 'Продолжить', nextId: 'shadow_admits' }
+    ]
+  },
+  {
+    id: 'looking_for_you',
+    character: 'black-sapphire',
+    text: 'Я искал вас. Хотел... увидеть.',
+    choices: [
+      { text: 'Продолжить', nextId: 'shadow_surprised_happy' }
+    ]
+  },
+  {
+    id: 'window_night',
+    character: 'narrator',
+    text: 'Вы стоите у окна, смотря на ночное королевство. Луна полная, замок купается в серебряном свете. За спиной слышится тихое дыхание...',
+    choices: [
+      { text: 'Обернуться', nextId: 'turn_to_shadow', affection: 0 },
+      { text: 'Продолжить смотреть', nextId: 'ignore_presence', affection: -5 }
+    ]
+  },
+  {
+    id: 'turn_to_shadow',
+    character: 'shadow-milk',
+    text: '*стоит в дверях* Красивый вид, не правда ли? *подходит* Но ты прекраснее любой луны.',
+    choices: [
+      { text: 'Вы пришли ко мне', nextId: 'acknowledge_visit', affection: 15 },
+      { text: 'Смотреть вместе', nextId: 'watch_together', affection: 10 }
+    ]
+  },
+  {
+    id: 'acknowledge_visit',
+    character: 'black-sapphire',
+    text: 'Вы пришли в мои покои. Ночью. *смотрит* Зачем?',
+    choices: [
+      { text: 'Продолжить', nextId: 'shadow_admits' }
+    ]
+  },
+  {
+    id: 'watch_together',
+    character: 'narrator',
+    text: 'Они стоят у окна вместе, плечом к плечу, смотря на луну. Тишина между ними комфортная...',
+    choices: [
+      { text: 'Положить голову на плечо', nextId: 'lean_on_shoulder', affection: 20 },
+      { text: 'Взять за руку', nextId: 'hold_hand', affection: 15 }
+    ]
+  },
+  {
+    id: 'lean_on_shoulder',
+    character: 'shadow-milk',
+    text: '*замирает когда чувствует вес* ...Мой мышонок. *обнимает за талию* Устал?',
+    choices: [
+      { text: 'Просто хочу быть близко', nextId: 'want_closeness', affection: 25 },
+      { text: 'С вами спокойно', nextId: 'peaceful_with_you', affection: 20 }
+    ]
+  },
+  {
+    id: 'want_closeness',
+    character: 'black-sapphire',
+    text: 'Просто хочу быть близко к вам. Чувствовать что вы рядом.',
+    choices: [
+      { text: 'Продолжить', nextId: 'shadow_holds_tight' }
+    ]
+  },
+  {
+    id: 'shadow_holds_tight',
+    character: 'shadow-milk',
+    text: '*прижимает крепче* Я всегда рядом. *целует в макушку* Всегда буду. *поворачивает к себе* Пойдём... в постель. Вместе.',
+    choices: [
+      { text: 'Пойти с ним', nextId: 'share_bed', affection: 30 },
+      { text: 'Ещё побыть здесь', nextId: 'stay_window', affection: 15 }
+    ]
+  },
+  {
+    id: 'stay_window',
+    character: 'black-sapphire',
+    text: 'Давайте ещё побудем здесь. *смотрит на луну* Такая красивая ночь.',
+    choices: [
+      { text: 'Продолжить', nextId: 'romantic_window' }
+    ]
+  },
+  {
+    id: 'romantic_window',
+    character: 'shadow-milk',
+    text: '*обнимает сзади, подбородок на плече* Хорошо. *шепчет* Сколько захочешь. *целует шею* Я готов стоять так вечность.',
+    choices: [
+      { text: 'Развернуться к нему', nextId: 'face_him_window', affection: 25 },
+      { text: 'Остаться в объятиях', nextId: 'stay_embraced', affection: 20 }
+    ]
+  },
+  {
+    id: 'face_him_window',
+    character: 'narrator',
+    text: 'Sapphire разворачивается. Они стоят лицом к лицу, луна светит за спиной. Их тени сливаются в одну...',
+    choices: [
+      { text: 'Поцеловать', nextId: 'window_kiss', affection: 30 },
+      { text: 'Прижаться лбами', nextId: 'forehead_touch', affection: 20 }
+    ]
+  },
+  {
+    id: 'window_kiss',
+    character: 'narrator',
+    text: 'КОНЦОВКА: Поцелуй при луне. Они целуются у окна, освещённые лунным светом. Это их первый настоящий поцелуй — нежный, страстный, полный любви. С этой ночи они больше не скрывают чувств.',
+    choices: [
+      { text: 'Начать заново', nextId: 'start' }
+    ]
+  },
+  {
+    id: 'forehead_touch',
+    character: 'shadow-milk',
+    text: '*прижимается лбом* Мой мышонок... *шепчет* Каждую ночь мечтаю об этом. О близости. О тебе.',
+    choices: [
+      { text: 'Я тоже', nextId: 'mutual_longing', affection: 30 },
+      { text: 'Поцеловать', nextId: 'window_kiss', affection: 25 }
+    ]
+  },
+  {
+    id: 'mutual_longing',
+    character: 'narrator',
+    text: 'КОНЦОВКА: Взаимное томление. Они признаются что оба мечтали о близости. Ночь становится их временем — когда маски спадают и они могут быть собой. Они начинают проводить каждую ночь вместе.',
+    choices: [
+      { text: 'Начать заново', nextId: 'start' }
+    ]
+  },
+  {
+    id: 'stay_embraced',
+    character: 'narrator',
+    text: 'Они стоят в объятиях, смотря на луну. Shadow Milk нежно покачивает Sapphire, напевая старую мелодию. Время останавливается...',
+    choices: [
+      { text: 'Продолжить', nextId: 'tender_night_ending' }
+    ]
+  },
+  {
+    id: 'tender_night_ending',
+    character: 'narrator',
+    text: 'КОНЦОВКА: Нежная ночь. Они проводят ночь в нежных объятиях у окна. Засыпают стоя, поддерживая друг друга. Это становится их ритуалом — встречи при луне, объятия, тишина и принятие.',
+    choices: [
+      { text: 'Начать заново', nextId: 'start' }
+    ]
+  },
+  {
+    id: 'peaceful_with_you',
+    character: 'black-sapphire',
+    text: 'С вами мне спокойно. Как будто весь мир останавливается.',
+    choices: [
+      { text: 'Продолжить', nextId: 'shadow_holds_tight' }
+    ]
+  },
+  {
+    id: 'hold_hand',
+    character: 'shadow-milk',
+    text: '*переплетает пальцы* Твоя рука... *прижимает к губам* ...так идеально лежит в моей.',
+    choices: [
+      { text: 'Прижаться ближе', nextId: 'get_closer', affection: 20 },
+      { text: 'Повернуться к нему', nextId: 'face_him_window', affection: 15 }
+    ]
+  },
+  {
+    id: 'get_closer',
+    character: 'narrator',
+    text: 'Sapphire прижимается ближе. Shadow Milk обнимает его, они стоят как одно целое...',
+    choices: [
+      { text: 'Продолжить', nextId: 'romantic_window' }
+    ]
+  },
+  {
+    id: 'ignore_presence',
+    character: 'narrator',
+    text: 'Вы продолжаете смотреть в окно, игнорируя присутствие. Shadow Milk вздыхает и тихо уходит. Может быть зря...',
+    choices: [
+      { text: 'Продолжить', nextId: 'distant_ending' }
     ]
   },
   {
